@@ -23,7 +23,8 @@
             "submodules/engine/src/index.js",
             "submodules/engine/extras/index.js",
             "submodules/observer/index.js",
-            "submodules/pcui/src/index.ts"
+            "submodules/pcui/src/index.ts",
+            "submodules/pcui-graph/src/index.js"
         ],
         "excludeNotDocumented": true,
         "excludeNotDocumentedKinds": [
@@ -67,6 +68,7 @@
         "submodules/engine/src/**/*.js",
         "submodules/engine/extras/**/*.js",
         "submodules/observer/**/*.js",
-        "submodules/pcui/src/**/*.ts"
+        "submodules/pcui/src/**/*.ts",
+        "submodules/pcui-graph/src/**/*.js"
     ]
 }

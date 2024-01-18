@@ -10,3 +10,6 @@
 [submodule "submodules/editor-api"]
 	path = submodules/editor-api
 	url = https://github.com/playcanvas/editor-api.git
+[submodule "submodules/pcui-graph"]
+	path = submodules/pcui-graph
+	url = https://github.com/playcanvas/pcui-graph.git
