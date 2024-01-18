@@ -61,7 +61,7 @@
         "plugin": [
             "typedoc-plugin-mdn-links"
         ],
-        "readme": "index.md"
+        "readme": "INDEX.md"
     },
     "include": [
         "submodules/editor-api/**/*.js",
