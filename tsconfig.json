@@ -1,0 +1,72 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "allowJs": true,
+        "target": "es6",
+        "jsx": "react",
+        "lib": [
+            "es2019",
+            "dom",
+            "dom.iterable"
+        ],
+        "esModuleInterop" : true,
+        "sourceMap": true,
+        "moduleResolution": "node"
+    },
+    "typedocOptions": {
+        "compilerOptions": {
+            "allowSyntheticDefaultImports": true,
+            "checkJs": false
+        },
+        "entryPoints": [
+            "submodules/editor-api/index.js",
+            "submodules/engine/src/index.js",
+            "submodules/engine/extras/index.js",
+            "submodules/observer/index.js",
+            "submodules/pcui/src/index.ts"
+        ],
+        "excludeNotDocumented": true,
+        "excludeNotDocumentedKinds": [
+            "Module",
+            "Namespace",
+            "Enum",
+            // "EnumMember", // Not enabled by default
+            "Variable",
+            "Function",
+            "Class",
+            "Interface",
+            "Constructor",
+            "Property",
+            "Method",
+            "CallSignature",
+            "IndexSignature",
+            "ConstructorSignature",
+            "Accessor",
+            // We only document getters/setters with one JSDoc block so if there is a setter,
+            // the getter will appear undocumented (setters always appear before getters).
+            // "GetSignature",
+            "SetSignature",
+            "TypeAlias",
+            "Reference"
+        ],
+        "githubPages": false,
+        "name": "PlayCanvas API Reference",
+        "navigationLinks": {
+            "Developer Site": "https://developer.playcanvas.com/",
+            "Discord": "https://discord.gg/RSaMRzg",
+            "Forum": "https://forum.playcanvas.com/",
+            "GitHub": "https://github.com/playcanvas"
+        },
+        "plugin": [
+            "typedoc-plugin-mdn-links"
+        ],
+        "readme": "index.md"
+    },
+    "include": [
+        "submodules/editor-api/**/*.js",
+        "submodules/engine/src/**/*.js",
+        "submodules/engine/extras/**/*.js",
+        "submodules/observer/**/*.js",
+        "submodules/pcui/src/**/*.ts"
+    ]
+}
