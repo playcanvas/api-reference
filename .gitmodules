@@ -1,0 +1,12 @@
+[submodule "submodules/engine"]
+	path = submodules/engine
+	url = https://github.com/playcanvas/engine.git
+[submodule "submodules/pcui"]
+	path = submodules/pcui
+	url = https://github.com/playcanvas/pcui.git
+[submodule "submodules/observer"]
+	path = submodules/observer
+	url = https://github.com/playcanvas/playcanvas-observer.git
+[submodule "submodules/editor-api"]
+	path = submodules/editor-api
+	url = https://github.com/playcanvas/editor-api.git

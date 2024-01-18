@@ -1,0 +1,35 @@
+{
+  "name": "@playcanvas/api-reference",
+  "version": "1.0.0",
+  "author": "PlayCanvas <support@playcanvas.com>",
+  "homepage": "https://api.playcanvas.com",
+  "description": "PlayCanvas API reference manual",
+  "keywords": [
+    "playcanvas",
+    "api",
+    "reference",
+    "documentation",
+    "typedoc"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/playcanvas/engine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playcanvas/engine.git"
+  },
+  "devDependencies": {
+    "@playcanvas/observer": "^1.4.0",
+    "@types/react": "^18.2.48",
+    "playcanvas": "^1.67.3",
+    "react": "^18.2.0",
+    "serve": "^14.2.1",
+    "typedoc": "^0.25.7",
+    "typedoc-plugin-mdn-links": "^3.1.12"
+  },
+  "scripts": {
+    "build": "typedoc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
