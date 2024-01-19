@@ -13,11 +13,11 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/playcanvas/engine/issues"
+    "url": "https://github.com/playcanvas/api-reference/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/playcanvas/engine.git"
+    "url": "https://github.com/playcanvas/api-reference.git"
   },
   "devDependencies": {
     "@playcanvas/observer": "^1.4.0",
