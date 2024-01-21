@@ -10,7 +10,7 @@ Ensure you have Node.js 18+ installed.
 
 ## Building
 
-To build the API reference manual locally:
+To build the API reference manual locally, run:
 
     npm run build
 
