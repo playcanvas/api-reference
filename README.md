@@ -1,6 +1,6 @@
 # PlayCanvas API Reference
 
-This is the combined API reference manual for PlayCanvas. It is built using TypeDoc.
+This is the combined API reference manual for PlayCanvas. It is built using [TypeDoc](https://typedoc.org/).
 
 ## Installation
 
@@ -23,3 +23,7 @@ To view the build manual, run:
     npm run serve
 
 Then point your browser at `http://localhost:3000`.
+
+## Deployment
+
+The API reference is automatically deployed to [GitHub Pages](https://playcanvas.github.io/api-reference/) whenever the main branch is updated.
