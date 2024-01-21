@@ -1,6 +1,6 @@
 # PlayCanvas API Reference
 
-This is the combined API reference manual for PlayCanvas. It is built using [TypeDoc](https://typedoc.org/).
+This repository builds the [PlayCanvas API Reference](https://playcanvas.github.io/api-reference/). It is built using [TypeDoc](https://typedoc.org/).
 
 ## Installation
 
@@ -26,4 +26,4 @@ Then point your browser at `http://localhost:3000`.
 
 ## Deployment
 
-The API reference is automatically deployed to [GitHub Pages](https://playcanvas.github.io/api-reference/) whenever the main branch is updated.
+The API reference is automatically deployed to GitHub Pages whenever the main branch is updated.
