@@ -19,9 +19,9 @@
             "checkJs": false
         },
         "entryPoints": [
-            "submodules/editor-api/index.js",
             "submodules/engine/src/index.js",
             "submodules/engine/extras/index.js",
+            "submodules/editor-api/index.js",
             "submodules/observer/index.js",
             "submodules/pcui/src/index.ts",
             "submodules/pcui-graph/src/index.js"
@@ -62,7 +62,8 @@
             "typedoc-plugin-mdn-links",
             "typedoc-plugin-rename-defaults"
         ],
-        "readme": "INDEX.md"
+        "readme": "INDEX.md",
+        "sortEntryPoints": false
     },
     "include": [
         "submodules/editor-api/**/*.js",
