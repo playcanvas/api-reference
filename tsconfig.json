@@ -50,7 +50,7 @@
             "TypeAlias",
             "Reference"
         ],
-        "githubPages": false,
+        "githubPages": true,
         "name": "PlayCanvas API Reference",
         "navigationLinks": {
             "Developer Site": "https://developer.playcanvas.com/",
