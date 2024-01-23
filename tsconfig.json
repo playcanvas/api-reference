@@ -70,7 +70,7 @@
         // Options for typedoc-plugin-extras
         "customDescription": "Combined API reference manual for PlayCanvas",
         "favicon": "favicon.ico",
-        "footerLastModified": true,
+        "footerLastModified": false, // enabling this activates the page's scroll bar
         "footerTypedocVersion": true
     },
     "include": [
