@@ -60,11 +60,18 @@
             "GitHub": "https://github.com/playcanvas"
         },
         "plugin": [
+            "typedoc-plugin-extras",
             "typedoc-plugin-mdn-links",
             "typedoc-plugin-rename-defaults"
         ],
         "readme": "INDEX.md",
-        "sortEntryPoints": false
+        "sortEntryPoints": false,
+
+        // Options for typedoc-plugin-extras
+        "customDescription": "Combined API reference manual for PlayCanvas",
+        "favicon": "favicon.ico",
+        "footerLastModified": true,
+        "footerTypedocVersion": true
     },
     "include": [
         "submodules/editor-api/**/*.js",
