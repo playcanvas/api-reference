@@ -1,6 +1,6 @@
 # PlayCanvas API Reference
 
-This repository builds the [PlayCanvas API Reference](https://playcanvas.github.io/api-reference/). It is built using [TypeDoc](https://typedoc.org/).
+This repository builds the [PlayCanvas API Reference](https://api.playcanvas.com/). It is built using [TypeDoc](https://typedoc.org/).
 
 ## Installation
 
