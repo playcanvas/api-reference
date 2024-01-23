@@ -22,7 +22,7 @@
             "submodules/engine/src/index.js",
             "submodules/engine/extras/index.js",
             "submodules/editor-api/index.js",
-            "submodules/observer/index.js",
+            "submodules/observer/src/index.js",
             "submodules/pcui/src/index.ts",
             "submodules/pcui-graph/src/index.js"
         ],
@@ -70,7 +70,7 @@
         "submodules/editor-api/**/*.js",
         "submodules/engine/src/**/*.js",
         "submodules/engine/extras/**/*.js",
-        "submodules/observer/**/*.js",
+        "submodules/observer/src/**/*.js",
         "submodules/pcui/src/**/*.ts",
         "submodules/pcui-graph/src/**/*.js"
     ]
