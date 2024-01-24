@@ -35,6 +35,7 @@ To update any of the submodules to latest commit of the `main` branch, do:
     cd ..
     git add submodules
     git commit -m "Updated submodule X to latest"
+    git push
 
 ## Deployment
 
