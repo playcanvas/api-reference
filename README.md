@@ -24,6 +24,18 @@ To view the build manual, run:
 
 Then point your browser at `http://localhost:3000`.
 
+## Updating Submodules
+
+To update any of the submodules to latest commit of the `main` branch, do:
+
+    cd submodules
+    cd engine (or pcui, pcui-graph, etc)
+    git pull origin main
+    cd ..
+    cd ..
+    git add submodules
+    git commit -m "Updated submodule X to latest"
+
 ## Deployment
 
 The API reference is automatically deployed to GitHub Pages whenever the main branch is updated.
