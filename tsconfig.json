@@ -60,6 +60,7 @@
             "GitHub": "https://github.com/playcanvas"
         },
         "plugin": [
+            "./typedoc-plugin-property.mjs",
             "typedoc-plugin-extras",
             "typedoc-plugin-mdn-links",
             "typedoc-plugin-rename-defaults"
