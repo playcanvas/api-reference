@@ -66,6 +66,7 @@
         ],
         "readme": "INDEX.md",
         "sortEntryPoints": false,
+        "customCss": "styles.css",
 
         // Options for typedoc-plugin-extras
         "customDescription": "Combined API reference manual for PlayCanvas",
