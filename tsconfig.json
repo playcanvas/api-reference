@@ -65,6 +65,9 @@
             "typedoc-plugin-rename-defaults"
         ],
         "readme": "INDEX.md",
+        "searchGroupBoosts": {
+            "Classes": 2
+        },
         "sortEntryPoints": false,
 
         // Options for typedoc-plugin-extras
