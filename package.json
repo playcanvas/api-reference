@@ -21,13 +21,13 @@
   },
   "devDependencies": {
     "@playcanvas/observer": "^1.4.0",
-    "@types/react": "^18.2.53",
+    "@types/react": "^18.2.55",
     "playcanvas": "^1.68.1",
     "react": "^18.2.0",
     "serve": "^14.2.1",
-    "typedoc": "^0.25.7",
+    "typedoc": "^0.25.8",
     "typedoc-plugin-extras": "^3.0.0",
-    "typedoc-plugin-mdn-links": "^3.1.15",
+    "typedoc-plugin-mdn-links": "^3.1.16",
     "typedoc-plugin-rename-defaults": "^0.7.0"
   },
   "scripts": {
