@@ -1,0 +1,65 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "checkJs": false
+    },
+    "entryPoints": [
+        "submodules/engine/src/index.js",
+        "submodules/engine/extras/index.js",
+        "submodules/editor-api/index.js",
+        "submodules/observer/src/index.js",
+        "submodules/pcui/src/index.ts",
+        "submodules/pcui-graph/src/index.js"
+    ],
+    "excludeNotDocumented": true,
+    "excludeNotDocumentedKinds": [
+        "Module",
+        "Namespace",
+        "Enum",
+        // "EnumMember", // Not enabled by default
+        "Variable",
+        "Function",
+        "Class",
+        "Interface",
+        "Constructor",
+        "Property",
+        "Method",
+        "CallSignature",
+        "IndexSignature",
+        "ConstructorSignature",
+        "Accessor",
+        // We only document getters/setters with one JSDoc block so if there is a setter,
+        // the getter will appear undocumented (setters always appear before getters).
+        // "GetSignature",
+        "SetSignature",
+        "TypeAlias",
+        "Reference"
+    ],
+    "gaID": "UA-23605814-1",
+    "githubPages": true,
+    "name": "PlayCanvas API Reference",
+    "navigationLinks": {
+        "Developer Site": "https://developer.playcanvas.com/",
+        "Discord": "https://discord.gg/RSaMRzg",
+        "Forum": "https://forum.playcanvas.com/",
+        "GitHub": "https://github.com/playcanvas"
+    },
+    "plugin": [
+        "./typedoc-plugin-property.mjs",
+        "typedoc-plugin-extras",
+        "typedoc-plugin-mdn-links",
+        "typedoc-plugin-rename-defaults"
+    ],
+    "readme": "INDEX.md",
+    "searchGroupBoosts": {
+        "Classes": 2
+    },
+    "sortEntryPoints": false,
+    "customCss": "styles.css",
+
+    // Options for typedoc-plugin-extras
+    "customDescription": "Combined API reference manual for PlayCanvas",
+    "favicon": "favicon.ico",
+    "footerLastModified": false, // enabling this activates the page's scroll bar
+    "footerTypedocVersion": true
+}
