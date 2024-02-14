@@ -1,8 +1,4 @@
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "checkJs": false
-    },
     "entryPoints": [
         "submodules/engine/src/index.js",
         "submodules/engine/extras/index.js",
@@ -54,6 +50,7 @@
     "searchGroupBoosts": {
         "Classes": 2
     },
+    "sitemapBaseUrl": "https://api.playcanvas.com/",
     "sortEntryPoints": false,
     "customCss": "styles.css",
 
