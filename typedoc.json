@@ -44,7 +44,8 @@
         "./typedoc-plugin-property.mjs",
         "typedoc-plugin-extras",
         "typedoc-plugin-mdn-links",
-        "typedoc-plugin-rename-defaults"
+        "typedoc-plugin-rename-defaults",
+        "typedoc-plugin-missing-exports",
     ],
     "readme": "INDEX.md",
     "searchGroupBoosts": {
@@ -58,5 +59,9 @@
     "customDescription": "Combined API reference manual for PlayCanvas",
     "favicon": "favicon.ico",
     "footerLastModified": false, // enabling this activates the page's scroll bar
-    "footerTypedocVersion": true
+    "footerTypedocVersion": true,
+
+
+    // Options for typedoc-plugin-missing-exports
+    "placeInternalsInOwningModule": true
 }
