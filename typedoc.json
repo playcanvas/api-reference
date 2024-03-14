@@ -34,8 +34,8 @@
     "exclude": [
         "**/node_modules/**",
         // Contains interfaces we also do not want to export so ignore entire files
-        "**/engine/src/scene/gsplat/gsplat-data.js",
-        "**/engine/src/scene/gsplat/gsplat-material.js",
+        "submodules/engine/src/scene/gsplat/gsplat-data.js",
+        "submodules/engine/src/scene/gsplat/gsplat-material.js",
     ],
     "gaID": "UA-23605814-1",
     "githubPages": true,
