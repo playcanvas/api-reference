@@ -66,8 +66,6 @@
     "favicon": "favicon.ico",
     "footerLastModified": false, // enabling this activates the page's scroll bar
     "footerTypedocVersion": true,
-
-
     // Options for typedoc-plugin-missing-exports
     "placeInternalsInOwningModule": true
 }
