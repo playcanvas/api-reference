@@ -31,6 +31,12 @@
         "TypeAlias",
         "Reference"
     ],
+    "exclude": [
+        "**/node_modules/**",
+        // Contains interfaces we also do not want to export so ignore entire files
+        "submodules/engine/src/scene/gsplat/gsplat-data.js",
+        "submodules/engine/src/scene/gsplat/gsplat-material.js"
+    ],
     "gaID": "UA-23605814-1",
     "githubPages": true,
     "name": "PlayCanvas API Reference",
@@ -44,7 +50,8 @@
         "./typedoc-plugin-property.mjs",
         "typedoc-plugin-extras",
         "typedoc-plugin-mdn-links",
-        "typedoc-plugin-rename-defaults"
+        "typedoc-plugin-rename-defaults",
+        "typedoc-plugin-missing-exports"
     ],
     "readme": "INDEX.md",
     "searchGroupBoosts": {
@@ -58,5 +65,7 @@
     "customDescription": "Combined API reference manual for PlayCanvas",
     "favicon": "favicon.ico",
     "footerLastModified": false, // enabling this activates the page's scroll bar
-    "footerTypedocVersion": true
+    "footerTypedocVersion": true,
+    // Options for typedoc-plugin-missing-exports
+    "placeInternalsInOwningModule": true
 }
