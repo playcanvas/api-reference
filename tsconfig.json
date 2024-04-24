@@ -16,7 +16,6 @@
     "include": [
         "submodules/editor-api/**/*.js",
         "submodules/engine/src/**/*.js",
-        "submodules/engine/extras/**/*.js",
         "submodules/observer/src/**/*.js",
         "submodules/pcui/src/**/*.ts",
         "submodules/pcui-graph/src/**/*.js"

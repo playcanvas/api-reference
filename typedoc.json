@@ -1,11 +1,10 @@
 {
     "entryPoints": [
         "submodules/engine/src/index.js",
-        "submodules/engine/extras/index.js",
         "submodules/editor-api/index.js",
-        "submodules/observer/src/index.js",
         "submodules/pcui/src/index.ts",
-        "submodules/pcui-graph/src/index.js"
+        "submodules/pcui-graph/src/index.js",
+        "submodules/observer/src/index.js"
     ],
     "excludeNotDocumented": true,
     "excludeNotDocumentedKinds": [
