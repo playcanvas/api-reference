@@ -6,6 +6,13 @@ This repository builds the [PlayCanvas API Reference](https://api.playcanvas.com
 
 Ensure you have Node.js 18+ installed.
 
+After cloning the repo, initialize the submodules:
+
+    git submodule init
+    git submodule update --remote
+
+Then install all NPM dependencies:
+
     npm install
 
 ## Building
