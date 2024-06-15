@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "noImplicitAny": true,
         "allowJs": true,
-        "target": "es6",
         "lib": [
             "es2019",
             "dom",
             "dom.iterable"
         ],
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "target": "es6"
     },
     "include": [
         "submodules/editor-api/**/*.js",
