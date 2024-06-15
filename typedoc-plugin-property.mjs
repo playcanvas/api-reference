@@ -50,13 +50,6 @@ function getProperties(filePath) {
  */
 function load(app) {
     const classes = new Map([
-        ['ButtonComponent', './submodules/engine/src/framework/components/button/component.js'],
-        ['CollisionComponent', './submodules/engine/src/framework/components/collision/component.js'],
-        ['ElementComponent', './submodules/engine/src/framework/components/element/component.js'],
-        ['LightComponent', './submodules/engine/src/framework/components/light/component.js'],
-        ['ParticleSystemComponent', './submodules/engine/src/framework/components/particle-system/component.js'],
-        ['ScrollbarComponent', './submodules/engine/src/framework/components/scrollbar/component.js'],
-        ['ScrollViewComponent', './submodules/engine/src/framework/components/scroll-view/component.js'],
         ['StandardMaterial', './submodules/engine/src/scene/materials/standard-material.js']
     ]);
 
