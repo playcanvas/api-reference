@@ -1,4 +1,5 @@
 {
+    "customCss": "styles.css",
     "entryPoints": [
         "submodules/engine/src/index.js",
         "submodules/editor-api/index.js",
@@ -8,10 +9,7 @@
     ],
     "excludeNotDocumented": true,
     "exclude": [
-        "**/node_modules/**",
-        // Contains interfaces we also do not want to export so ignore entire files
-        "submodules/engine/src/scene/gsplat/gsplat-data.js",
-        "submodules/engine/src/scene/gsplat/gsplat-material.js"
+        "**/node_modules/**"
     ],
     "githubPages": true,
     "hostedBaseUrl": "https://api.playcanvas.com/",
@@ -34,7 +32,6 @@
         "Classes": 2
     },
     "sortEntryPoints": false,
-    "customCss": "styles.css",
 
     // Options for typedoc-plugin-missing-exports
     "placeInternalsInOwningModule": true
