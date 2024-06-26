@@ -13,8 +13,8 @@
         "submodules/engine/src/scene/gsplat/gsplat-data.js",
         "submodules/engine/src/scene/gsplat/gsplat-material.js"
     ],
-    "gaID": "UA-23605814-1",
     "githubPages": true,
+    "hostedBaseUrl": "https://api.playcanvas.com/",
     "name": "PlayCanvas API Reference",
     "navigationLinks": {
         "Developer Site": "https://developer.playcanvas.com/",
@@ -25,7 +25,6 @@
     },
     "plugin": [
         "./typedoc-plugin-property.mjs",
-        "typedoc-plugin-extras",
         "typedoc-plugin-mdn-links",
         "typedoc-plugin-rename-defaults",
         "typedoc-plugin-missing-exports"
@@ -34,15 +33,9 @@
     "searchGroupBoosts": {
         "Classes": 2
     },
-    "sitemapBaseUrl": "https://api.playcanvas.com/",
     "sortEntryPoints": false,
     "customCss": "styles.css",
 
-    // Options for typedoc-plugin-extras
-    "customDescription": "Combined API reference manual for PlayCanvas",
-    "favicon": "favicon.ico",
-    "footerLastModified": false, // enabling this activates the page's scroll bar
-    "footerTypedocVersion": true,
     // Options for typedoc-plugin-missing-exports
     "placeInternalsInOwningModule": true
 }
