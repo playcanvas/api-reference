@@ -4,13 +4,13 @@ Welcome to the PlayCanvas API Reference! This documentation provides detailed in
 
 This documentation is organized into modules that correspond to different PlayCanvas products. Each section contains detailed descriptions of classes, methods, and their respective usage.
 
-| Module                                 | Description                                                                                                 |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [Engine](./modules/Engine)             | The core engine API that powers PlayCanvas applications, providing support for graphics, physics, and more. |
-| [Editor](./modules/Editor)             | The API for automating and enhancing the functionality of the PlayCanvas Editor.                            |
-| [PCUI](./modules/PCUI)                 | A web front-end framework specifically tailored for creating UIs in browser-based tools.                    |
-| [PCUIGraph](./modules/PCUIGraph)       | A PCUI extension providing a component for managing node-based graphs.                                      |
-| [Observer](./modules/Observer)         | An implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern), essential for event handling and data binding in complex applications. |
+| Module                                | Description                                                                                                 |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [Engine](./modules/Engine.html)       | The core engine API that powers PlayCanvas applications, providing support for graphics, physics, and more. |
+| [Editor](./modules/Editor.html)       | The API for automating and enhancing the functionality of the PlayCanvas Editor.                            |
+| [PCUI](./modules/PCUI.html)           | A web front-end framework specifically tailored for creating UIs in browser-based tools.                    |
+| [PCUIGraph](./modules/PCUIGraph.html) | A PCUI extension providing a component for managing node-based graphs.                                      |
+| [Observer](./modules/Observer.html)   | An implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern), essential for event handling and data binding in complex applications. |
 
 ### 🚀 Getting Started
 
