@@ -1,5 +1,4 @@
 {
-    "customCss": "styles.css",
     "entryPoints": [
         "submodules/engine/src/index.js",
         "submodules/editor-api/index.js",
