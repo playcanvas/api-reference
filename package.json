@@ -22,17 +22,17 @@
   "devDependencies": {
     "@playcanvas/observer": "^1.5.1",
     "@types/react": "^18.3.3",
-    "cpy-cli": "^5.0.0",
     "playcanvas": "^1.72.0",
     "react": "^18.3.1",
     "serve": "^14.2.3",
     "typedoc": "^0.26.3",
+    "typedoc-plugin-extras": "^3.1.0",
     "typedoc-plugin-mdn-links": "^3.2.1",
     "typedoc-plugin-missing-exports": "^3.0.0",
     "typedoc-plugin-rename-defaults": "^0.7.1"
   },
   "scripts": {
-    "build": "typedoc && cpy favicon.ico docs",
+    "build": "typedoc",
     "serve": "serve docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
