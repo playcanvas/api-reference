@@ -124,7 +124,7 @@ function load(app) {
                 if (!reflection.children) {
                     reflection.children = [];
                 }
-                reflection.children.push(newProperty);
+                reflection.addChild(newProperty);
             }
         });
     });
