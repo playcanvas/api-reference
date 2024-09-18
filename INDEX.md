@@ -10,7 +10,7 @@ This documentation is organized into modules that correspond to different PlayCa
 | [Editor](/modules/Editor.html)       | The API for automating and enhancing the functionality of the PlayCanvas Editor.                            |
 | [PCUI](/modules/PCUI.html)           | A web front-end framework specifically tailored for creating UIs in browser-based tools.                    |
 | [PCUIGraph](/modules/PCUIGraph.html) | A PCUI extension providing a component for managing node-based graphs.                                      |
-| [Observer](/modules/Observer.html)   | An implementation of the [observer pattern][https://en.wikipedia.org/wiki/Observer_pattern], essential for event handling and data binding in complex apps. |
+| [Observer](/modules/Observer.html)   | An implementation of the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern), essential for event handling and data binding in complex apps. |
 
 ### 🚀 Getting Started
 
