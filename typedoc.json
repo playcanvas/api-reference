@@ -1,6 +1,7 @@
 {
     "entryPoints": [
         "submodules/engine/src/index.js",
+        "submodules/web-components/src/index.ts",
         "submodules/editor-api/index.js",
         "submodules/pcui/src/index.ts",
         "submodules/pcui-graph/src/index.js",

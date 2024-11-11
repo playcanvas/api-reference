@@ -22,7 +22,7 @@
   "devDependencies": {
     "@playcanvas/observer": "^1.5.1",
     "@types/react": "^18.3.12",
-    "playcanvas": "^1.74.0",
+    "playcanvas": "^2.2.2",
     "react": "^18.3.1",
     "serve": "^14.2.4",
     "typedoc": "^0.26.11",

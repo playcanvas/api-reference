@@ -15,6 +15,7 @@
         "submodules/engine/src/**/*.js",
         "submodules/observer/src/**/*.js",
         "submodules/pcui/src/**/*.ts",
-        "submodules/pcui-graph/src/**/*.js"
+        "submodules/pcui-graph/src/**/*.js",
+        "submodules/web-components/src/**/*.ts"
     ]
 }

@@ -13,3 +13,6 @@
 [submodule "submodules/pcui-graph"]
 	path = submodules/pcui-graph
 	url = https://github.com/playcanvas/pcui-graph.git
+[submodule "submodules/web-components"]
+	path = submodules/web-components
+	url = https://github.com/playcanvas/web-components.git
