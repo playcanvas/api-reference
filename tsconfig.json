@@ -8,7 +8,8 @@
         ],
         "moduleResolution": "node",
         "noImplicitAny": true,
-        "target": "es6"
+        "skipLibCheck": true,
+        "target": "ES2017"
     },
     "include": [
         "submodules/editor-api/**/*.js",
