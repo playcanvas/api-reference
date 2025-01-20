@@ -5,7 +5,7 @@
         "submodules/editor-api/index.js",
         "submodules/pcui/src/index.ts",
         "submodules/pcui-graph/src/index.js",
-        "submodules/observer/src/index.js"
+        "submodules/observer/src/index.ts"
     ],
     "excludeNotDocumented": true,
     "exclude": [
