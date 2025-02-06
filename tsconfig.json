@@ -7,12 +7,11 @@
             "dom.iterable"
         ],
         "moduleResolution": "node",
-        "noImplicitAny": true,
         "skipLibCheck": true,
         "target": "ES2017"
     },
     "include": [
-        "submodules/editor-api/**/*.js",
+        "submodules/editor-api/src/**/*.ts",
         "submodules/engine/src/**/*.js",
         "submodules/observer/src/**/*.ts",
         "submodules/pcui/src/**/*.ts",
