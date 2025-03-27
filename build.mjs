@@ -209,6 +209,122 @@ function combineSitemaps() {
 }
 
 /**
+ * Generate redirect files for old URL patterns to new structure
+ */
+function generateRedirects() {
+  console.log('Generating redirects for old URL structure...');
+  
+  // Define the patterns to match and their redirects
+  const patterns = [
+    {
+      oldDir: 'classes',
+      pattern: /^Engine\.(.+)\.html$/,
+      newPath: '/engine/classes/$1.html'
+    },
+    {
+      oldDir: 'interfaces',
+      pattern: /^Engine\.(.+)\.html$/,
+      newPath: '/engine/interfaces/$1.html'
+    },
+    {
+      oldDir: 'types',
+      pattern: /^Engine\.(.+)\.html$/,
+      newPath: '/engine/types/$1.html'
+    },
+    {
+      oldDir: 'modules',
+      pattern: /^Engine\.(.+)\.html$/,
+      newPath: '/engine/modules/$1.html'
+    },
+    {
+      oldDir: 'functions',
+      pattern: /^Engine\.(.+)\.html$/,
+      newPath: '/engine/functions/$1.html'
+    }
+  ];
+  
+  // Create all the necessary directories and redirect files
+  for (const { oldDir, pattern, newPath } of patterns) {
+    const dirPath = path.join('docs', oldDir);
+    ensureDir(dirPath);
+    
+    // Create a catch-all index.html in the directory for redirecting
+    const indexPath = path.join(dirPath, 'index.html');
+    const indexContent = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var filename = path.split('/').pop();
+      
+      if (filename) {
+        var match = filename.match(${pattern.toString()});
+        if (match && match[1]) {
+          var newUrl = "${newPath}".replace('$1', match[1]);
+          window.location.href = newUrl;
+          return;
+        }
+      }
+      
+      // If no match or no filename, redirect to homepage
+      window.location.href = '/';
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to the new API reference structure...</p>
+</body>
+</html>`;
+    
+    fs.writeFileSync(indexPath, indexContent);
+    console.log(`Created redirect for /${oldDir}/* pattern`);
+  }
+  
+  // Create a 404 page that attempts to handle redirects as well
+  const notFoundPath = path.join('docs', '404.html');
+  const notFoundContent = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Page Not Found</title>
+  <script>
+    (function() {
+      const path = window.location.pathname;
+      const segments = path.split('/');
+      const filename = segments.pop();
+      const dirType = segments.pop();
+      
+      // Check if this matches our old URL pattern
+      if (dirType && filename && ['classes', 'functions', 'interfaces', 'modules', 'types', 'variables'].includes(dirType)) {
+        const match = filename.match(/^Engine\.(.+)\.html$/);
+        if (match && match[1]) {
+          const newUrl = "/engine/" + dirType + "/" + match[1] + ".html";
+          window.location.href = newUrl;
+          return;
+        }
+      }
+      
+      // Default fallback - go to homepage
+      window.location.href = '/';
+    })();
+  </script>
+</head>
+<body>
+  <h1>Page Not Found</h1>
+  <p>Redirecting to the new URL structure...</p>
+</body>
+</html>`;
+
+  fs.writeFileSync(notFoundPath, notFoundContent);
+  console.log('Created 404 page with redirection logic');
+  
+  console.log('Redirect generation complete.');
+}
+
+/**
  * Main function to build the documentation
  */
 async function buildDocs() {
@@ -283,6 +399,10 @@ async function buildDocs() {
     // Generate combined sitemap
     console.log('\nGenerating combined sitemap...');
     combineSitemaps();
+    
+    // Generate redirects for old URLs
+    console.log('\nGenerating redirects for old URL structure...');
+    generateRedirects();
     
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {
