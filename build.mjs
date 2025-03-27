@@ -219,6 +219,10 @@ async function buildDocs() {
     // Create docs directory if it doesn't exist
     ensureDir('docs');
     
+    // Create .nojekyll file to prevent GitHub Pages from using Jekyll
+    console.log('Creating .nojekyll file...');
+    fs.writeFileSync(path.join('docs', '.nojekyll'), '');
+    
     // Remove existing repos directory and create a new one
     deleteDir('repos');
     ensureDir('repos');
