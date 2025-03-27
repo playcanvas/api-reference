@@ -42,27 +42,37 @@ This cross-platform script will:
 5. Copy the documentation to a central `docs` folder
 6. Create a main index.html file that allows navigation between the different API references
 
-> **Note:** The build script automatically cleans and recreates the `repos` directory each time it's run, ensuring you always get a fresh build with the latest code from the configured branches.
+> [!NOTE]  
+> The build script automatically cleans and recreates the `repos` directory each time it's run, ensuring you always get a fresh build with the latest code from the configured branches.
 
 ### Specifying Repository Branches
 
-By default, the branches specified in `repos-config.json` are used for all repositories. You can override these defaults for any repository by using command-line arguments in the format `repo=branch`:
+The default branches for all repositories are defined in the `repos-config.json` file. This is the recommended place to set your branch configurations:
 
-```bash
-# Build using the dev branch for the engine repository
-npm run build engine=dev
-
-# Specify multiple repositories with different branches
-npm run build engine=dev pcui=feature/new-components editor-api=beta
+```json
+{
+  "repositories": [
+    {
+      "name": "engine",
+      "url": "https://github.com/playcanvas/engine.git",
+      "branch": "release-2.6"
+    },
+    // ... other repositories
+  ]
+}
 ```
 
-Available repository names:
-- `engine`
-- `pcui`
-- `observer`
-- `editor-api`
-- `pcui-graph`
-- `web-components`
+For temporary changes without modifying the configuration file, you can override branches using command-line arguments in the format `repo=branch`:
+
+```bash
+# Override the engine branch for a single build
+npm run build engine=dev
+
+# Override multiple repositories for a single build
+npm run build engine=dev pcui=feature/new-components
+```
+
+The repository names used in the command line must match the `name` fields in the `repos-config.json` file.
 
 ## Viewing
 
