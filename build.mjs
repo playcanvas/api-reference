@@ -97,6 +97,118 @@ function copyDirContents(src, dest) {
 }
 
 /**
+ * Combine sitemap.xml files from all repositories
+ */
+function combineSitemaps() {
+  const sitemaps = [];
+  let siteUrl = 'https://api.playcanvas.com';
+  
+  // Check the package.json for homepage URL
+  try {
+    const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    if (packageJson.homepage) {
+      siteUrl = packageJson.homepage;
+    }
+  } catch (error) {
+    console.warn('Warning: Could not read package.json to determine site URL.');
+  }
+  
+  // Remove trailing slash if present
+  siteUrl = siteUrl.replace(/\/$/, '');
+  
+  console.log(`Using site URL: ${siteUrl}`);
+  
+  // Collect URLs from each repository's sitemap
+  for (const repo of REPOS) {
+    const sitemapPath = path.join('docs', repo.name, 'sitemap.xml');
+    if (fs.existsSync(sitemapPath)) {
+      try {
+        const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
+        console.log(`Processing sitemap for ${repo.name} (${sitemapPath})`);
+        
+        // Extract URLs and lastmod times using regex
+        const urlRegex = /<url>[\s\S]*?<loc>(.*?)<\/loc>(?:[\s\S]*?<lastmod>(.*?)<\/lastmod>)?[\s\S]*?<\/url>/g;
+        let match;
+        let count = 0;
+        
+        while ((match = urlRegex.exec(sitemapContent)) !== null) {
+          let url = match[1];
+          const lastmod = match[2] || '';
+          let finalUrl = '';
+          
+          // Make relative to site root if needed
+          if (url.startsWith('http')) {
+            // Extract the path portion from the URL
+            const urlPath = new URL(url).pathname;
+            
+            // Remove leading slash for consistency in checks
+            const normalizedPath = urlPath.replace(/^\//, '');
+            const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
+            
+            // Check if the path already includes the repo name to avoid duplication
+            if (normalizedPath.startsWith(`${normalizedRepoName}/`)) {
+              finalUrl = `${siteUrl}${urlPath}`;
+            } else {
+              finalUrl = `${siteUrl}/${normalizedRepoName}/${normalizedPath}`;
+            }
+          } else {
+            // For relative URLs, normalize paths
+            const normalizedUrl = url.replace(/^\//, '');
+            const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
+            
+            // Check if the URL already starts with the repo name
+            if (normalizedUrl.startsWith(`${normalizedRepoName}/`)) {
+              finalUrl = `${siteUrl}/${normalizedUrl}`;
+            } else {
+              finalUrl = `${siteUrl}/${normalizedRepoName}/${normalizedUrl}`;
+            }
+          }
+          
+          let urlEntry = `
+    <url>
+        <loc>${finalUrl}</loc>`;
+          
+          // Add lastmod if available
+          if (lastmod) {
+            urlEntry += `
+        <lastmod>${lastmod}</lastmod>`;
+          }
+          
+          urlEntry += `
+    </url>`;
+          
+          sitemaps.push(urlEntry);
+          count++;
+        }
+        
+        console.log(`Extracted ${count} URLs from ${repo.name} sitemap`);
+      } catch (error) {
+        console.warn(`Warning: Could not process sitemap for ${repo.name}: ${error.message}`);
+      }
+    } else {
+      console.warn(`Warning: No sitemap found for ${repo.name}`);
+    }
+  }
+  
+  // Add root page to sitemap with current date as lastmod
+  const today = new Date().toISOString().split('T')[0];
+  sitemaps.unshift(`
+    <url>
+        <loc>${siteUrl}/</loc>
+        <lastmod>${today}</lastmod>
+    </url>`);
+  
+  // Create combined sitemap
+  const combinedSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemaps.join('')}
+</urlset>`;
+  
+  // Write to the docs folder
+  fs.writeFileSync(path.join('docs', 'sitemap.xml'), combinedSitemap);
+  console.log(`Combined sitemap created successfully with ${sitemaps.length} URLs.`);
+}
+
+/**
  * Main function to build the documentation
  */
 async function buildDocs() {
@@ -163,6 +275,10 @@ async function buildDocs() {
       ensureDir(path.join('docs', 'assets'));
       copyDirContents('assets', path.join('docs', 'assets'));
     }
+    
+    // Generate combined sitemap
+    console.log('\nGenerating combined sitemap...');
+    combineSitemaps();
     
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {
