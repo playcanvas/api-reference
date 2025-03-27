@@ -279,7 +279,7 @@ async function buildDocs() {
     // Generate combined sitemap
     console.log('\nGenerating combined sitemap...');
     combineSitemaps();
-
+    
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {
     console.error(`\nError: ${error.message}`);
