@@ -41,6 +41,7 @@ This cross-platform script will:
 4. Build the TypeDoc documentation for each repository
 5. Copy the documentation to a central `docs` folder
 6. Create a main index.html file that allows navigation between the different API references
+7. Generate a combined sitemap.xml that includes URLs from all repositories for better SEO
 
 > [!NOTE]  
 > The build script automatically cleans and recreates the `repos` directory each time it's run, ensuring you always get a fresh build with the latest code from the configured branches.
