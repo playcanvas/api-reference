@@ -72,25 +72,19 @@ npm run serve
 
 Then point your browser at `http://localhost:3000`.
 
-## Manual Update Process
+## Update Process
 
-If you need to update any individual repository:
+The build script will automatically clean and recreate the `repos` directory each time it's run. This means running the build command will always produce a fresh build with the latest code from the branches specified in `repos-config.json`:
 
-1. Remove the specific repository from the `repos` directory:
-   ```bash
-   # For Unix-like systems
-   rm -rf repos/[repo-name]
-   
-   # For Windows
-   rmdir /s /q repos\[repo-name]
-   ```
+```bash
+npm run build
+```
 
-2. Re-run the build script:
-   ```bash
-   npm run build
-   ```
+If you want to update a specific repository to use a different branch temporarily without changing the configuration file, you can use the branch override feature:
 
-Or you can modify the script to update only specific repositories as needed.
+```bash
+npm run build engine=dev
+```
 
 ## Deployment
 
