@@ -8,15 +8,40 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the repos to clone
-const REPOS = [
-  { name: 'engine', url: 'https://github.com/playcanvas/engine.git' },
-  { name: 'pcui', url: 'https://github.com/playcanvas/pcui.git' },
-  { name: 'observer', url: 'https://github.com/playcanvas/playcanvas-observer.git' },
-  { name: 'editor-api', url: 'https://github.com/playcanvas/editor-api.git' },
-  { name: 'pcui-graph', url: 'https://github.com/playcanvas/pcui-graph.git' },
-  { name: 'web-components', url: 'https://github.com/playcanvas/web-components.git' }
-];
+// Load repository configuration from JSON file
+let REPOS = [];
+try {
+  const configPath = path.join(__dirname, 'repos-config.json');
+  const configData = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  REPOS = configData.repositories;
+  console.log(`Loaded ${REPOS.length} repositories from configuration file`);
+} catch (error) {
+  console.error(`Error loading repository configuration: ${error.message}`);
+  process.exit(1);
+}
+
+/**
+ * Parse command line arguments to override repository branches
+ */
+function parseBranchArgs() {
+  const args = process.argv.slice(2);
+  
+  // Process arguments in the format: repo=branch (e.g., engine=dev)
+  for (const arg of args) {
+    const match = arg.match(/^([^=]+)=(.+)$/);
+    if (match) {
+      const [, repoName, branchName] = match;
+      const repo = REPOS.find(r => r.name === repoName);
+      
+      if (repo) {
+        console.log(`Setting custom branch for ${repoName}: ${branchName}`);
+        repo.branch = branchName;
+      } else {
+        console.warn(`Warning: Unknown repository '${repoName}' specified in arguments`);
+      }
+    }
+  }
+}
 
 /**
  * Execute shell command and display the output
@@ -76,6 +101,9 @@ function copyDirContents(src, dest) {
  */
 async function buildDocs() {
   try {
+    // Parse command line arguments for branch overrides
+    parseBranchArgs();
+    
     // Create docs directory if it doesn't exist
     ensureDir('docs');
     
@@ -85,13 +113,13 @@ async function buildDocs() {
     
     // Process each repository
     for (const repo of REPOS) {
-      console.log(`\n========== Processing ${repo.name} ==========`);
+      console.log(`\n========== Processing ${repo.name} (branch: ${repo.branch}) ==========`);
       
       // Change to repos directory
       process.chdir(path.join(process.cwd(), 'repos'));
       
-      // Clone the repository
-      runCommand(`git clone ${repo.url} ${repo.name}`);
+      // Clone the repository with specified branch
+      runCommand(`git clone -b ${repo.branch} ${repo.url} ${repo.name}`);
       
       // Change to repository directory
       process.chdir(path.join(process.cwd(), repo.name));
@@ -128,6 +156,13 @@ async function buildDocs() {
     // Copy favicon
     console.log('Copying favicon...');
     fs.copyFileSync('favicon.ico', path.join('docs', 'favicon.ico'));
+    
+    // Copy assets directory if it exists
+    if (fs.existsSync('assets')) {
+      console.log('Copying assets directory...');
+      ensureDir(path.join('docs', 'assets'));
+      copyDirContents('assets', path.join('docs', 'assets'));
+    }
     
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {

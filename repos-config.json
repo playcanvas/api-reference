@@ -1,0 +1,34 @@
+{
+  "repositories": [
+    {
+      "name": "engine",
+      "url": "https://github.com/playcanvas/engine.git",
+      "branch": "release-2.6"
+    },
+    {
+      "name": "pcui",
+      "url": "https://github.com/playcanvas/pcui.git",
+      "branch": "main"
+    },
+    {
+      "name": "observer",
+      "url": "https://github.com/playcanvas/playcanvas-observer.git",
+      "branch": "main"
+    },
+    {
+      "name": "editor-api",
+      "url": "https://github.com/playcanvas/editor-api.git",
+      "branch": "main"
+    },
+    {
+      "name": "pcui-graph",
+      "url": "https://github.com/playcanvas/pcui-graph.git",
+      "branch": "main"
+    },
+    {
+      "name": "web-components",
+      "url": "https://github.com/playcanvas/web-components.git",
+      "branch": "main"
+    }
+  ]
+} 
