@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="default" lang="en">
+<html class="default" data-theme="dark" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -58,19 +58,25 @@
             --dark-external-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='10' height='10'><path fill-opacity='0' stroke='%23fff' stroke-width='10' d='m43,35H5v60h60V57M45,5v10l10,10-30,30 20,20 30-30 10,10h10V5z'/></svg>");
         }
 
+        /* Default dark theme to match TypeDoc */
+        html {
+            color-scheme: dark;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 16px;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            color: var(--light-color-text);
-            background-color: var(--light-color-background);
-        }
-
-        body.dark {
             color: var(--dark-color-text);
             background-color: var(--dark-color-background);
+        }
+
+        html[data-theme="light"] body {
+            color: var(--light-color-text);
+            background-color: var(--light-color-background);
+            color-scheme: light;
         }
 
         .tsd-page-toolbar {
@@ -79,25 +85,25 @@
             top: 0;
             left: 0;
             width: 100%;
-            color: var(--light-color-toolbar-text);
-            background-color: var(--light-color-toolbar);
-            border-bottom: 1px solid var(--light-color-panel-divider);
+            color: var(--dark-color-toolbar-text);
+            background-color: var(--dark-color-toolbar);
+            border-bottom: 1px solid var(--dark-color-panel-divider);
             transition: transform 0.3s ease-in-out;
         }
 
-        body.dark .tsd-page-toolbar {
-            color: var(--dark-color-toolbar-text);
-            background-color: var(--dark-color-toolbar);
-            border-bottom-color: var(--dark-color-panel-divider);
+        html[data-theme="light"] .tsd-page-toolbar {
+            color: var(--light-color-toolbar-text);
+            background-color: var(--light-color-toolbar);
+            border-bottom-color: var(--light-color-panel-divider);
         }
 
         .tsd-page-toolbar a {
-            color: var(--light-color-toolbar-text);
+            color: var(--dark-color-toolbar-text);
             text-decoration: none;
         }
 
-        body.dark .tsd-page-toolbar a {
-            color: var(--dark-color-toolbar-text);
+        html[data-theme="light"] .tsd-page-toolbar a {
+            color: var(--light-color-toolbar-text);
         }
 
         .tsd-page-toolbar a:hover {
@@ -154,48 +160,51 @@
         }
 
         .tsd-widget.search {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23333"></path></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23e3e3e3"></path></svg>') 0 0 no-repeat;
+            filter: var(--dark-icon-filter);
             height: 16px;
             width: 16px;
         }
 
-        body.dark .tsd-widget.search {
-            filter: var(--dark-icon-filter);
+        html[data-theme="light"] .tsd-widget.search {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23333"></path></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
         }
 
         .tsd-widget.menu {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23e3e3e3" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
+            filter: var(--dark-icon-filter);
             height: 16px;
             width: 16px;
         }
 
-        body.dark .tsd-widget.menu {
-            filter: var(--dark-icon-filter);
+        html[data-theme="light"] .tsd-widget.menu {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
         }
 
         .tsd-widget.theme {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23e3e3e3" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
+            filter: var(--dark-icon-filter);
             height: 16px;
             width: 16px;
         }
 
-        body.dark .tsd-widget.theme {
-            filter: var(--dark-icon-filter);
+        html[data-theme="light"] .tsd-widget.theme {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
         }
 
         .tsd-page-title {
             padding: 70px 0 20px;
             margin: 0 0 40px;
-            background-color: var(--light-color-panel);
-            border-bottom: 1px solid var(--light-color-panel-divider);
+            background-color: var(--dark-color-panel);
+            border-bottom: 1px solid var(--dark-color-panel-divider);
         }
 
-        body.dark .tsd-page-title {
-            background-color: var(--dark-color-panel);
-            border-bottom-color: var(--dark-color-panel-divider);
+        html[data-theme="light"] .tsd-page-title {
+            background-color: var(--light-color-panel);
+            border-bottom-color: var(--light-color-panel-divider);
         }
 
         .tsd-page-title .container {
@@ -250,12 +259,12 @@
         .tsd-navigation a {
             display: block;
             padding: 4px 0;
-            color: var(--light-color-text);
+            color: var(--dark-color-text);
             text-decoration: none;
         }
 
-        body.dark .tsd-navigation a {
-            color: var(--dark-color-text);
+        html[data-theme="light"] .tsd-navigation a {
+            color: var(--light-color-text);
         }
 
         .tsd-navigation a:hover {
@@ -263,7 +272,7 @@
             text-decoration: underline;
         }
 
-        body.dark .tsd-navigation a:hover {
+        html[data-theme="light"] .tsd-navigation a:hover {
             color: var(--dark-color-link);
         }
         
@@ -287,17 +296,17 @@
         }
 
         .tsd-panel {
-            background-color: var(--light-color-background-secondary);
+            background-color: var(--dark-color-background-secondary);
             border-radius: 4px;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
             padding: 20px;
             position: relative;
             margin-bottom: 20px;
         }
 
-        body.dark .tsd-panel {
-            background-color: var(--dark-color-background-secondary);
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+        html[data-theme="light"] .tsd-panel {
+            background-color: var(--light-color-background-secondary);
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
         }
 
         .tsd-panel.tsd-module {
@@ -347,7 +356,7 @@
             vertical-align: middle;
         }
 
-        body.dark .tsd-flag {
+        html[data-theme="light"] .tsd-flag {
             color: var(--dark-color-comment-tag-text);
             background-color: var(--dark-color-comment-tag);
         }
@@ -367,7 +376,7 @@
             color: var(--light-color-text-aside);
         }
 
-        body.dark .tsd-footer {
+        html[data-theme="light"] .tsd-footer {
             background-color: var(--dark-color-panel);
             border-top-color: var(--dark-color-panel-divider);
             color: var(--dark-color-text-aside);
@@ -390,7 +399,7 @@
             z-index: 2;
         }
 
-        body.dark .tsd-search {
+        html[data-theme="light"] .tsd-search {
             background-color: var(--dark-color-panel);
             border-bottom-color: var(--dark-color-panel-divider);
         }
@@ -418,7 +427,7 @@
             outline: 0;
         }
 
-        body.dark .tsd-search input {
+        html[data-theme="light"] .tsd-search input {
             color: var(--dark-color-text);
         }
 
@@ -426,7 +435,7 @@
             color: var(--light-color-text-aside);
         }
 
-        body.dark .tsd-search input::-webkit-input-placeholder {
+        html[data-theme="light"] .tsd-search input::-webkit-input-placeholder {
             color: var(--dark-color-text-aside);
         }
 
@@ -443,7 +452,7 @@
             transition: opacity 0.2s;
         }
 
-        body.dark .tsd-search-close {
+        html[data-theme="light"] .tsd-search-close {
             filter: var(--dark-icon-filter);
         }
 
@@ -467,7 +476,7 @@
             overflow-y: auto;
         }
 
-        body.dark .tsd-search-results {
+        html[data-theme="light"] .tsd-search-results {
             background-color: var(--dark-color-background);
             border-color: var(--dark-color-panel-divider);
         }
@@ -496,7 +505,7 @@
             display: block;
         }
 
-        body.dark .tsd-search-result-item a {
+        html[data-theme="light"] .tsd-search-result-item a {
             color: var(--dark-color-text);
         }
 
@@ -505,7 +514,7 @@
             text-decoration: underline;
         }
 
-        body.dark .tsd-search-result-item a:hover {
+        html[data-theme="light"] .tsd-search-result-item a:hover {
             color: var(--dark-color-link);
         }
 
@@ -527,7 +536,7 @@
             border: 1px solid var(--light-color-panel-divider);
         }
 
-        body.dark .tsd-filter-group {
+        html[data-theme="light"] .tsd-filter-group {
             background-color: var(--dark-color-background-secondary);
             border-color: var(--dark-color-panel-divider);
         }
@@ -550,53 +559,66 @@
 
         /* Module-specific adjustments for our content */
         .module-item {
-            background-color: var(--light-color-background-secondary);
+            background-color: var(--dark-color-background-secondary);
             border-radius: 4px;
             padding: 20px;
-            border: 1px solid var(--light-color-panel-divider);
+            border: 1px solid var(--dark-color-panel-divider);
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        body.dark .module-item {
-            background-color: var(--dark-color-background-secondary);
-            border-color: var(--dark-color-panel-divider);
+        html[data-theme="light"] .module-item {
+            background-color: var(--light-color-background-secondary);
+            border-color: var(--light-color-panel-divider);
         }
 
         .module-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        body.dark .module-item:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        html[data-theme="light"] .module-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .module-item h3 {
             margin-top: 0;
+            color: var(--dark-color-text);
+        }
+
+        html[data-theme="light"] .module-item h3 {
+            color: var(--light-color-text);
         }
 
         .module-item p {
             margin-bottom: 20px;
-            color: var(--light-color-text-aside);
+            color: var(--dark-color-text-aside);
         }
 
-        body.dark .module-item p {
-            color: var(--dark-color-text-aside);
+        html[data-theme="light"] .module-item p {
+            color: var(--light-color-text-aside);
         }
 
         .module-link {
             display: inline-block;
             padding: 8px 16px;
-            background-color: var(--light-color-link);
-            color: white !important;
+            background-color: var(--dark-color-link);
+            color: #fff;
+            text-decoration: none;
             border-radius: 4px;
-            font-weight: 500;
             transition: background-color 0.2s;
         }
 
+        html[data-theme="light"] .module-link {
+            background-color: var(--light-color-link);
+        }
+
         .module-link:hover {
-            background-color: #3a8ad8;
+            background-color: #2a80e9;
             text-decoration: none;
+        }
+
+        html[data-theme="light"] .module-link:hover {
+            background-color: #0066cc;
         }
         
         /* Mobile responsiveness */
@@ -629,6 +651,47 @@
             }
         }
     </style>
+    <script>
+        // Function to set theme - use TypeDoc's localStorage key for consistency
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('tsd-theme', theme);
+        }
+
+        // Check for saved theme preference in TypeDoc's localStorage key
+        const savedTheme = localStorage.getItem('tsd-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            setTheme(savedTheme);
+        } else {
+            // Check for system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        // Listen for system theme changes if no saved preference
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+                if (!localStorage.getItem('tsd-theme')) {
+                    setTheme(e.matches ? 'light' : 'dark');
+                }
+            });
+        }
+
+        // Add theme toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.querySelector('.tsd-widget.theme');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    setTheme(newTheme);
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <a class="tsd-anchor" id="top"></a>
@@ -741,26 +804,6 @@
     <script>
         // Set current date in footer
         document.getElementById('current-date').textContent = new Date().toLocaleDateString();
-        
-        // Theme toggle functionality
-        const themeBtn = document.querySelector('.tsd-widget.theme');
-        const body = document.body;
-        
-        // Check for saved dark mode preference or use system preference
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-        
-        // Apply initial dark mode state
-        if (savedDarkMode || (prefersDarkMode && savedDarkMode !== false)) {
-            body.classList.add('dark');
-        }
-        
-        // Toggle dark mode when theme icon is clicked
-        themeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            body.classList.toggle('dark');
-            localStorage.setItem('darkMode', body.classList.contains('dark'));
-        });
         
         // Search functionality
         const searchBtn = document.querySelector('.tsd-widget.search');
