@@ -42,6 +42,8 @@ This cross-platform script will:
 5. Copy the documentation to a central `docs` folder
 6. Create a main index.html file that allows navigation between the different API references
 
+> **Note:** The build script automatically cleans and recreates the `repos` directory each time it's run, ensuring you always get a fresh build with the latest code from the configured branches.
+
 ### Specifying Repository Branches
 
 By default, the branches specified in `repos-config.json` are used for all repositories. You can override these defaults for any repository by using command-line arguments in the format `repo=branch`:
@@ -71,20 +73,6 @@ npm run serve
 ```
 
 Then point your browser at `http://localhost:3000`.
-
-## Update Process
-
-The build script will automatically clean and recreate the `repos` directory each time it's run. This means running the build command will always produce a fresh build with the latest code from the branches specified in `repos-config.json`:
-
-```bash
-npm run build
-```
-
-If you want to update a specific repository to use a different branch temporarily without changing the configuration file, you can use the branch override feature:
-
-```bash
-npm run build engine=dev
-```
 
 ## Deployment
 
