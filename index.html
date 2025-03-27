@@ -135,6 +135,11 @@
             display: flex;
             gap: 16px;
             font-size: 14px;
+            margin: 0 20px;
+        }
+
+        .tsd-toolbar-links a {
+            white-space: nowrap;
         }
 
         .tsd-widget {
@@ -608,6 +613,20 @@
             .tsd-navigation.primary {
                 position: static;
             }
+
+            .tsd-toolbar-links {
+                display: none;
+            }
+
+            .title {
+                max-width: 70%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -616,17 +635,22 @@
     
     <header class="tsd-page-toolbar">
         <div class="tsd-toolbar-contents container">
-            <div class="table-cell" id="tsd-search">
-                <div class="title">
-                    <a href="./index.html">
-                        <em>PlayCanvas</em> API Reference
-                    </a>
-                </div>
-                <div class="table-cell" id="tsd-widgets">
-                    <a href="#" class="tsd-widget search" data-show=".tsd-search" title="Search"></a>
-                    <a href="#" class="tsd-widget menu" data-show=".menu-popup" title="Menu"></a>
-                    <a href="#" class="tsd-widget theme" data-show=".theme-popup" title="Theme"></a>
-                </div>
+            <div class="title">
+                <a href="./index.html">
+                    <em>PlayCanvas</em> API Reference
+                </a>
+            </div>
+            <div class="tsd-toolbar-links">
+                <a href="https://developer.playcanvas.com" target="_blank">Developer Site</a>
+                <a href="https://forum.playcanvas.com" target="_blank">Forum</a>
+                <a href="https://blog.playcanvas.com" target="_blank">Blog</a>
+                <a href="https://github.com/playcanvas" target="_blank">GitHub</a>
+                <a href="https://discord.gg/RSaMRzg" target="_blank">Discord</a>
+            </div>
+            <div id="tsd-widgets">
+                <a href="#" class="tsd-widget search" data-show=".tsd-search" title="Search"></a>
+                <a href="#" class="tsd-widget menu" data-show=".menu-popup" title="Menu"></a>
+                <a href="#" class="tsd-widget theme" data-show=".theme-popup" title="Theme"></a>
             </div>
         </div>
     </header>
@@ -653,19 +677,10 @@
                     <ul>
                         <li><a href="./engine/">Engine</a></li>
                         <li><a href="./web-components/">Web Components</a></li>
-                        <li><a href="./editor-api/">Editor API</a></li>
+                        <li><a href="./editor-api/">Editor</a></li>
                         <li><a href="./observer/">Observer</a></li>
                         <li><a href="./pcui/">PCUI</a></li>
                         <li><a href="./pcui-graph/">PCUI Graph</a></li>
-                    </ul>
-                    
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="https://developer.playcanvas.com" target="_blank">Developer Site</a></li>
-                        <li><a href="https://forum.playcanvas.com" target="_blank">Forum</a></li>
-                        <li><a href="https://blog.playcanvas.com" target="_blank">Blog</a></li>
-                        <li><a href="https://github.com/playcanvas" target="_blank">GitHub</a></li>
-                        <li><a href="https://discord.gg/RSaMRzg" target="_blank">Discord</a></li>
                     </ul>
                 </nav>
             </div>
@@ -690,7 +705,7 @@
                                 <a href="./web-components/" class="module-link">View API Reference</a>
                             </li>
                             <li class="module-item" data-name="editor-api">
-                                <h3>Editor API</h3>
+                                <h3>Editor</h3>
                                 <p>API for interfacing with the PlayCanvas Editor.</p>
                                 <a href="./editor-api/" class="module-link">View API Reference</a>
                             </li>
