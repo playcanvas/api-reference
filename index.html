@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayCanvas API Reference</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            color: #222;
+            background-color: #fff;
+        }
+        .dark-mode {
+            color: #e3e3e3;
+            background-color: #151515;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+        .dark-mode header {
+            border-bottom-color: #333;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .module-card {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+        .dark-mode .module-card {
+            background: #252525;
+            border-color: #333;
+        }
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .dark-mode .module-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .module-card h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .module-card p {
+            margin-bottom: 1.5rem;
+        }
+        .module-card a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .module-card a:hover {
+            background-color: #1976D2;
+        }
+        .toggle-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .toggle-label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="toggle-container">
+            <span class="toggle-label">Dark Mode</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <header>
+            <h1>PlayCanvas API Reference</h1>
+            <p>Welcome to the PlayCanvas API Reference. Select a module below to view its documentation.</p>
+        </header>
+        <div class="module-grid">
+            <div class="module-card">
+                <h2>Engine</h2>
+                <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
+                <a href="./engine/">View Documentation</a>
+            </div>
+            <div class="module-card">
+                <h2>PCUI</h2>
+                <p>User interface component library for creating tools and editors.</p>
+                <a href="./pcui/">View Documentation</a>
+            </div>
+            <div class="module-card">
+                <h2>Observer</h2>
+                <p>Reactive data observation and binding system.</p>
+                <a href="./observer/">View Documentation</a>
+            </div>
+            <div class="module-card">
+                <h2>Editor API</h2>
+                <p>API for interfacing with the PlayCanvas Editor.</p>
+                <a href="./editor-api/">View Documentation</a>
+            </div>
+            <div class="module-card">
+                <h2>PCUI Graph</h2>
+                <p>Graph user interface components for creating node-based editors.</p>
+                <a href="./pcui-graph/">View Documentation</a>
+            </div>
+            <div class="module-card">
+                <h2>Web Components</h2>
+                <p>Custom HTML elements for PlayCanvas applications.</p>
+                <a href="./web-components/">View Documentation</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Check for saved dark mode preference or use system preference
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        
+        // Apply initial dark mode state
+        if (savedDarkMode || (prefersDarkMode && savedDarkMode !== false)) {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+        
+        // Toggle dark mode when switch is clicked
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'false');
+            }
+        });
+    </script>
+</body>
+</html> 
