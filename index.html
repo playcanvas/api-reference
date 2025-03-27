@@ -1,180 +1,735 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="default" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
     <title>PlayCanvas API Reference</title>
+    <meta name="description" content="API Reference for the PlayCanvas libraries">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
     <style>
+        :root {
+            --light-color-background: #fff;
+            --light-color-background-secondary: #fbfbfb;
+            --light-color-warning-text: #222;
+            --light-color-background-warning: #f0ad4e;
+            --light-color-text: #222;
+            --light-color-text-aside: #707070;
+            --light-color-link: #4da6ff;
+            --light-color-menu-divider: #eee;
+            --light-color-menu-divider-focus: #000;
+            --light-color-menu-label: #707070;
+            --light-color-panel: #fbfbfb;
+            --light-color-panel-divider: #eee;
+            --light-color-comment-tag: #707070;
+            --light-color-comment-tag-text: #fff;
+            --light-color-ts: #9600ff;
+            --light-color-ts-interface: #647f1b;
+            --light-color-ts-enum: #937210;
+            --light-color-ts-class: #0672de;
+            --light-color-ts-private: #707070;
+            --light-color-toolbar: #fbfbfb;
+            --light-color-toolbar-text: #333;
+            --light-icon-filter: invert(0);
+            --light-external-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='10' height='10'><path fill-opacity='0' stroke='%23000' stroke-width='10' d='m43,35H5v60h60V57M45,5v10l10,10-30,30 20,20 30-30 10,10h10V5z'/></svg>");
+
+            --dark-color-background: #1e1e1e;
+            --dark-color-background-secondary: #2d2d2d;
+            --dark-color-warning-text: #222;
+            --dark-color-background-warning: #f0ad4e;
+            --dark-color-text: #e3e3e3;
+            --dark-color-text-aside: #9b9b9b;
+            --dark-color-link: #4da6ff;
+            --dark-color-menu-divider: #424242;
+            --dark-color-menu-divider-focus: #fff;
+            --dark-color-menu-label: #9b9b9b;
+            --dark-color-panel: #2d2d2d;
+            --dark-color-panel-divider: #424242;
+            --dark-color-comment-tag: #9b9b9b;
+            --dark-color-comment-tag-text: #fff;
+            --dark-color-ts: #b382ff;
+            --dark-color-ts-interface: #a5c261;
+            --dark-color-ts-enum: #daa520;
+            --dark-color-ts-class: #4da6ff;
+            --dark-color-ts-private: #9b9b9b;
+            --dark-color-toolbar: #2d2d2d;
+            --dark-color-toolbar-text: #e3e3e3;
+            --dark-icon-filter: invert(1);
+            --dark-external-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='10' height='10'><path fill-opacity='0' stroke='%23fff' stroke-width='10' d='m43,35H5v60h60V57M45,5v10l10,10-30,30 20,20 30-30 10,10h10V5z'/></svg>");
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            color: #222;
-            background-color: #fff;
+            color: var(--light-color-text);
+            background-color: var(--light-color-background);
         }
-        .dark-mode {
-            color: #e3e3e3;
-            background-color: #151515;
+
+        body.dark {
+            color: var(--dark-color-text);
+            background-color: var(--dark-color-background);
         }
-        .container {
-            max-width: 1000px;
+
+        .tsd-page-toolbar {
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            color: var(--light-color-toolbar-text);
+            background-color: var(--light-color-toolbar);
+            border-bottom: 1px solid var(--light-color-panel-divider);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        body.dark .tsd-page-toolbar {
+            color: var(--dark-color-toolbar-text);
+            background-color: var(--dark-color-toolbar);
+            border-bottom-color: var(--dark-color-panel-divider);
+        }
+
+        .tsd-page-toolbar a {
+            color: var(--light-color-toolbar-text);
+            text-decoration: none;
+        }
+
+        body.dark .tsd-page-toolbar a {
+            color: var(--dark-color-toolbar-text);
+        }
+
+        .tsd-page-toolbar a:hover {
+            text-decoration: underline;
+        }
+
+        .tsd-page-toolbar .tsd-toolbar-contents {
+            display: flex;
+            min-height: 40px;
+            padding: 8px 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: normal;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .title a {
+            display: flex;
+            align-items: center;
+        }
+
+        .title em {
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .tsd-toolbar-links {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .tsd-widget {
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            margin-left: 16px;
+        }
+
+        .tsd-widget:hover {
+            opacity: 1;
+        }
+
+        .tsd-widget.search {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23333"></path></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
+            height: 16px;
+            width: 16px;
+        }
+
+        body.dark .tsd-widget.search {
+            filter: var(--dark-icon-filter);
+        }
+
+        .tsd-widget.menu {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
+            height: 16px;
+            width: 16px;
+        }
+
+        body.dark .tsd-widget.menu {
+            filter: var(--dark-icon-filter);
+        }
+
+        .tsd-widget.theme {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
+            height: 16px;
+            width: 16px;
+        }
+
+        body.dark .tsd-widget.theme {
+            filter: var(--dark-icon-filter);
+        }
+
+        .tsd-page-title {
+            padding: 70px 0 20px;
+            margin: 0 0 40px;
+            background-color: var(--light-color-panel);
+            border-bottom: 1px solid var(--light-color-panel-divider);
+        }
+
+        body.dark .tsd-page-title {
+            background-color: var(--dark-color-panel);
+            border-bottom-color: var(--dark-color-panel-divider);
+        }
+
+        .tsd-page-title .container {
+            padding: 0 20px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
         }
-        header {
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #ddd;
+
+        .tsd-page-title h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0;
         }
-        .dark-mode header {
-            border-bottom-color: #333;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        h1 {
+
+        .row {
+            display: flex;
+            position: relative;
+        }
+
+        .col-4 {
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .col-8 {
+            flex: 0 0 75%;
+            max-width: 75%;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .tsd-navigation {
+            padding: 0 0 0 20px;
+            margin: 0 0 40px;
+        }
+        
+        .tsd-navigation.primary {
+            padding-bottom: 40px;
+            position: sticky;
+            top: 70px;
+            z-index: 0;
+        }
+
+        .tsd-navigation a {
+            display: block;
+            padding: 4px 0;
+            color: var(--light-color-text);
+            text-decoration: none;
+        }
+
+        body.dark .tsd-navigation a {
+            color: var(--dark-color-text);
+        }
+
+        .tsd-navigation a:hover {
+            color: var(--light-color-link);
+            text-decoration: underline;
+        }
+
+        body.dark .tsd-navigation a:hover {
+            color: var(--dark-color-link);
+        }
+        
+        .tsd-navigation h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tsd-navigation ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .tsd-navigation li {
+            margin: 0 0 8px;
+            position: relative;
+        }
+
+        .tsd-panel {
+            background-color: var(--light-color-background-secondary);
+            border-radius: 4px;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+            padding: 20px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        body.dark .tsd-panel {
+            background-color: var(--dark-color-background-secondary);
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .tsd-panel.tsd-module {
+            margin-bottom: 20px;
+        }
+
+        .tsd-panel h3 {
             margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 20px;
+            font-weight: 600;
         }
-        .module-grid {
+
+        .tsd-panel-group {
+            margin-bottom: 40px;
+        }
+
+        .tsd-module-index {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        .module-card {
-            background: #f5f5f5;
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #e0e0e0;
+
+        .tsd-panel-margin {
+            margin-bottom: 20px;
         }
-        .dark-mode .module-card {
-            background: #252525;
-            border-color: #333;
-        }
-        .module-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .dark-mode .module-card:hover {
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .module-card h2 {
+
+        .tsd-panel > h1, .tsd-panel > h2, .tsd-panel > h3, .tsd-panel > h4 {
             margin-top: 0;
-            margin-bottom: 1rem;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
-        .module-card p {
-            margin-bottom: 1.5rem;
-        }
-        .module-card a {
+
+        .tsd-flag {
             display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: #2196F3;
-            color: white;
+            padding: 2px 6px;
+            margin-top: -2px;
+            margin-left: 8px;
+            color: var(--light-color-comment-tag-text);
+            background-color: var(--light-color-comment-tag);
+            font-weight: 500;
+            font-size: 12px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        body.dark .tsd-flag {
+            color: var(--dark-color-comment-tag-text);
+            background-color: var(--dark-color-comment-tag);
+        }
+
+        .tsd-anchor {
+            position: absolute;
+            top: -100px;
+        }
+
+        .tsd-footer {
+            background-color: var(--light-color-panel);
+            border-top: 1px solid var(--light-color-panel-divider);
+            padding: 20px 0;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--light-color-text-aside);
+        }
+
+        body.dark .tsd-footer {
+            background-color: var(--dark-color-panel);
+            border-top-color: var(--dark-color-panel-divider);
+            color: var(--dark-color-text-aside);
+        }
+
+        .tsd-footer .container {
+            padding: 0 20px;
+        }
+
+        .tsd-search {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            background-color: var(--light-color-panel);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            border-bottom: 1px solid var(--light-color-panel-divider);
+            z-index: 2;
+        }
+
+        body.dark .tsd-search {
+            background-color: var(--dark-color-panel);
+            border-bottom-color: var(--dark-color-panel-divider);
+        }
+
+        .tsd-search.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tsd-search .container {
+            display: flex;
+            padding: 12px 20px;
+            position: relative;
+            height: 40px;
+        }
+
+        .tsd-search input {
+            flex: 1;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--light-color-text);
+            outline: 0;
+        }
+
+        body.dark .tsd-search input {
+            color: var(--dark-color-text);
+        }
+
+        .tsd-search input::-webkit-input-placeholder {
+            color: var(--light-color-text-aside);
+        }
+
+        body.dark .tsd-search input::-webkit-input-placeholder {
+            color: var(--dark-color-text-aside);
+        }
+
+        .tsd-search-close {
+            position: absolute;
+            right: 20px;
+            top: 12px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z" fill="%23333"></path></svg>') 0 0 no-repeat;
+            filter: var(--light-icon-filter);
+            height: 16px;
+            width: 16px;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        body.dark .tsd-search-close {
+            filter: var(--dark-icon-filter);
+        }
+
+        .tsd-search-close:hover {
+            opacity: 1;
+        }
+
+        .tsd-search-results {
+            position: absolute;
+            top: 41px;
+            width: 100%;
+            left: 0;
+            box-sizing: border-box;
+            background-color: var(--light-color-background);
+            border-bottom: 1px solid var(--light-color-panel-divider);
+            border-left: 1px solid var(--light-color-panel-divider);
+            border-right: 1px solid var(--light-color-panel-divider);
+            padding: 10px 20px;
+            display: none;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        body.dark .tsd-search-results {
+            background-color: var(--dark-color-background);
+            border-color: var(--dark-color-panel-divider);
+        }
+
+        .tsd-search.has-results .tsd-search-results {
+            display: block;
+        }
+
+        .tsd-search-result-group {
+            margin: 0 0 12px;
+        }
+
+        .tsd-search-result-group > h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+
+        .tsd-search-result-item {
+            padding: 4px 0;
+        }
+
+        .tsd-search-result-item a {
+            color: var(--light-color-text);
             text-decoration: none;
+            display: block;
+        }
+
+        body.dark .tsd-search-result-item a {
+            color: var(--dark-color-text);
+        }
+
+        .tsd-search-result-item a:hover {
+            color: var(--light-color-link);
+            text-decoration: underline;
+        }
+
+        body.dark .tsd-search-result-item a:hover {
+            color: var(--dark-color-link);
+        }
+
+        .tsd-search-result-item .tsd-kind-icon {
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .tsd-filter-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tsd-filter-group {
+            background-color: var(--light-color-background-secondary);
+            border-radius: 4px;
+            padding: 8px 12px;
+            border: 1px solid var(--light-color-panel-divider);
+        }
+
+        body.dark .tsd-filter-group {
+            background-color: var(--dark-color-background-secondary);
+            border-color: var(--dark-color-panel-divider);
+        }
+
+        .tsd-filter-group h5 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tsd-filter-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .tsd-filter-input {
+            margin-right: 6px;
+        }
+
+        /* Module-specific adjustments for our content */
+        .module-item {
+            background-color: var(--light-color-background-secondary);
+            border-radius: 4px;
+            padding: 20px;
+            border: 1px solid var(--light-color-panel-divider);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        body.dark .module-item {
+            background-color: var(--dark-color-background-secondary);
+            border-color: var(--dark-color-panel-divider);
+        }
+
+        .module-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark .module-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .module-item h3 {
+            margin-top: 0;
+        }
+
+        .module-item p {
+            margin-bottom: 20px;
+            color: var(--light-color-text-aside);
+        }
+
+        body.dark .module-item p {
+            color: var(--dark-color-text-aside);
+        }
+
+        .module-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--light-color-link);
+            color: white !important;
             border-radius: 4px;
             font-weight: 500;
             transition: background-color 0.2s;
         }
-        .module-card a:hover {
-            background-color: #1976D2;
+
+        .module-link:hover {
+            background-color: #3a8ad8;
+            text-decoration: none;
         }
-        .toggle-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-        }
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-        .toggle-label {
-            margin-right: 10px;
+        
+        /* Mobile responsiveness */
+        @media (max-width: 900px) {
+            .row {
+                flex-direction: column;
+            }
+            
+            .col-4, .col-8 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .tsd-navigation.primary {
+                position: static;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="toggle-container">
-            <span class="toggle-label">Dark Mode</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="darkModeToggle">
-                <span class="slider"></span>
-            </label>
+    <a class="tsd-anchor" id="top"></a>
+    
+    <header class="tsd-page-toolbar">
+        <div class="tsd-toolbar-contents container">
+            <div class="table-cell" id="tsd-search">
+                <div class="title">
+                    <a href="./index.html">
+                        <em>PlayCanvas</em> API Reference
+                    </a>
+                </div>
+                <div class="table-cell" id="tsd-widgets">
+                    <a href="#" class="tsd-widget search" data-show=".tsd-search" title="Search"></a>
+                    <a href="#" class="tsd-widget menu" data-show=".menu-popup" title="Menu"></a>
+                    <a href="#" class="tsd-widget theme" data-show=".theme-popup" title="Theme"></a>
+                </div>
+            </div>
         </div>
-        <header>
+    </header>
+    
+    <div class="tsd-search">
+        <div class="container">
+            <input type="text" class="tsd-search-field" placeholder="Search..." id="searchInput">
+            <div class="tsd-search-close" id="searchClose"></div>
+        </div>
+        <div class="tsd-search-results container"></div>
+    </div>
+
+    <div class="tsd-page-title">
+        <div class="container">
             <h1>PlayCanvas API Reference</h1>
-            <p>Welcome to the PlayCanvas API Reference. Select a module below to view its documentation.</p>
-        </header>
-        <div class="module-grid">
-            <div class="module-card">
-                <h2>Engine</h2>
-                <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
-                <a href="./engine/">View Documentation</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <nav class="tsd-navigation primary">
+                    <h3>API References</h3>
+                    <ul>
+                        <li><a href="./engine/">Engine</a></li>
+                        <li><a href="./web-components/">Web Components</a></li>
+                        <li><a href="./editor-api/">Editor API</a></li>
+                        <li><a href="./observer/">Observer</a></li>
+                        <li><a href="./pcui/">PCUI</a></li>
+                        <li><a href="./pcui-graph/">PCUI Graph</a></li>
+                    </ul>
+                    
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://developer.playcanvas.com" target="_blank">Developer Site</a></li>
+                        <li><a href="https://forum.playcanvas.com" target="_blank">Forum</a></li>
+                        <li><a href="https://blog.playcanvas.com" target="_blank">Blog</a></li>
+                        <li><a href="https://github.com/playcanvas" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/RSaMRzg" target="_blank">Discord</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="module-card">
-                <h2>PCUI</h2>
-                <p>User interface component library for creating tools and editors.</p>
-                <a href="./pcui/">View Documentation</a>
-            </div>
-            <div class="module-card">
-                <h2>Observer</h2>
-                <p>Reactive data observation and binding system.</p>
-                <a href="./observer/">View Documentation</a>
-            </div>
-            <div class="module-card">
-                <h2>Editor API</h2>
-                <p>API for interfacing with the PlayCanvas Editor.</p>
-                <a href="./editor-api/">View Documentation</a>
-            </div>
-            <div class="module-card">
-                <h2>PCUI Graph</h2>
-                <p>Graph user interface components for creating node-based editors.</p>
-                <a href="./pcui-graph/">View Documentation</a>
-            </div>
-            <div class="module-card">
-                <h2>Web Components</h2>
-                <p>Custom HTML elements for PlayCanvas applications.</p>
-                <a href="./web-components/">View Documentation</a>
+            
+            <div class="col-8">
+                <div class="tsd-panel-group">
+                    <div class="tsd-panel tsd-typography">
+                        <p>Welcome to the PlayCanvas API references. These API documentation sets provide detailed information about the various PlayCanvas libraries and tools. Select one of the modules below to explore its API reference.</p>
+                    </div>
+                
+                    <section class="tsd-panel-group tsd-module">
+                        <h2>Available API References</h2>
+                        <ul class="tsd-module-index" id="searchableModules">
+                            <li class="module-item" data-name="engine">
+                                <h3>Engine</h3>
+                                <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
+                                <a href="./engine/" class="module-link">View API Reference</a>
+                            </li>
+                            <li class="module-item" data-name="web-components">
+                                <h3>Web Components</h3>
+                                <p>Custom HTML elements for building declarative PlayCanvas applications.</p>
+                                <a href="./web-components/" class="module-link">View API Reference</a>
+                            </li>
+                            <li class="module-item" data-name="editor-api">
+                                <h3>Editor API</h3>
+                                <p>API for interfacing with the PlayCanvas Editor.</p>
+                                <a href="./editor-api/" class="module-link">View API Reference</a>
+                            </li>
+                            <li class="module-item" data-name="observer">
+                                <h3>Observer</h3>
+                                <p>Reactive data observation and binding system.</p>
+                                <a href="./observer/" class="module-link">View API Reference</a>
+                            </li>
+                            <li class="module-item" data-name="pcui">
+                                <h3>PCUI</h3>
+                                <p>User interface component library for creating tools and editors.</p>
+                                <a href="./pcui/" class="module-link">View API Reference</a>
+                            </li>
+                            <li class="module-item" data-name="pcui-graph">
+                                <h3>PCUI Graph</h3>
+                                <p>Graph user interface components for creating node-based editors.</p>
+                                <a href="./pcui-graph/" class="module-link">View API Reference</a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
+
+    <footer class="tsd-footer">
+        <div class="container">
+            <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+            <p>Documentation generated on <span id="current-date"></span></p>
+        </div>
+    </footer>
+    
     <script>
-        // Dark mode toggle functionality
-        const darkModeToggle = document.getElementById('darkModeToggle');
+        // Set current date in footer
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+        
+        // Theme toggle functionality
+        const themeBtn = document.querySelector('.tsd-widget.theme');
+        const body = document.body;
         
         // Check for saved dark mode preference or use system preference
         const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -182,19 +737,73 @@
         
         // Apply initial dark mode state
         if (savedDarkMode || (prefersDarkMode && savedDarkMode !== false)) {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
+            body.classList.add('dark');
         }
         
-        // Toggle dark mode when switch is clicked
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'true');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'false');
+        // Toggle dark mode when theme icon is clicked
+        themeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            body.classList.toggle('dark');
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
+        });
+        
+        // Search functionality
+        const searchBtn = document.querySelector('.tsd-widget.search');
+        const searchDiv = document.querySelector('.tsd-search');
+        const searchInput = document.getElementById('searchInput');
+        const searchClose = document.getElementById('searchClose');
+        const moduleItems = document.querySelectorAll('.module-item');
+        
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchDiv.classList.toggle('active');
+            if (searchDiv.classList.contains('active')) {
+                searchInput.focus();
             }
+        });
+        
+        searchClose.addEventListener('click', () => {
+            searchDiv.classList.remove('active');
+        });
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm) {
+                searchDiv.classList.add('has-results');
+            } else {
+                searchDiv.classList.remove('has-results');
+            }
+            
+            moduleItems.forEach(item => {
+                const moduleName = item.getAttribute('data-name').toLowerCase();
+                const moduleTitle = item.querySelector('h3').textContent.toLowerCase();
+                const moduleDesc = item.querySelector('p').textContent.toLowerCase();
+                
+                if (moduleName.includes(searchTerm) || 
+                    moduleTitle.includes(searchTerm) || 
+                    moduleDesc.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Close search on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchDiv.classList.contains('active')) {
+                searchDiv.classList.remove('active');
+                searchDiv.classList.remove('has-results');
+            }
+        });
+        
+        // Menu toggle functionality
+        const menuBtn = document.querySelector('.tsd-widget.menu');
+        
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('.col-4').classList.toggle('visible');
         });
     </script>
 </body>
