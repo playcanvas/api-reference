@@ -279,27 +279,7 @@ async function buildDocs() {
     // Generate combined sitemap
     console.log('\nGenerating combined sitemap...');
     combineSitemaps();
-    
-    // Generate redirects for old URLs
-    console.log('\nGenerating redirects for old URL structure...');
-    generateRedirects();
-    
-    // Generate robots.txt file
-    console.log('\nGenerating robots.txt file...');
-    generateRobotsTxt();
-    
-    // Generate URL map
-    console.log('\nGenerating URL mapping file...');
-    generateUrlMap();
-    
-    // Generate URL change information page
-    console.log('\nGenerating URL change information page...');
-    generateUrlChangePage();
-    
-    // Add URL change banner to index
-    console.log('\nAdding URL change banner to index.html...');
-    addUrlChangeBannerToIndex();
-    
+
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {
     console.error(`\nError: ${error.message}`);
