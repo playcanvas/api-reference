@@ -6,6 +6,11 @@
       "branch": "release-2.6"
     },
     {
+      "name": "engine-v1",
+      "url": "https://github.com/playcanvas/engine.git",
+      "branch": "release-1.77"
+    },
+    {
       "name": "pcui",
       "url": "https://github.com/playcanvas/pcui.git",
       "branch": "main"
