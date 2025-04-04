@@ -120,7 +120,12 @@ function combineSitemaps() {
   
   // Collect URLs from each repository's sitemap
   for (const repo of REPOS) {
-    const sitemapPath = path.join('docs', repo.name, 'sitemap.xml');
+    // Get the actual target folder name (editor-api -> editor)
+    const targetFolderName = repo.name === 'editor-api' ? 'editor' : repo.name;
+    
+    // Look for the sitemap in the target folder, not necessarily the repo name folder
+    const sitemapPath = path.join('docs', targetFolderName, 'sitemap.xml');
+    
     if (fs.existsSync(sitemapPath)) {
       try {
         const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
@@ -145,22 +150,50 @@ function combineSitemaps() {
             const normalizedPath = urlPath.replace(/^\//, '');
             const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
             
-            // Check if the path already includes the repo name to avoid duplication
-            if (normalizedPath.startsWith(`${normalizedRepoName}/`)) {
-              finalUrl = `${siteUrl}${urlPath}`;
+            // Special handling for engine-v1 repository
+            if (repo.name === 'engine-v1' && normalizedPath.startsWith('engine/')) {
+              // For engine-v1, remove the 'engine/' prefix from paths
+              const pathWithoutEngine = normalizedPath.replace(/^engine\//, '');
+              finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEngine}`;
+            }
+            // Special handling for editor-api repository
+            else if (repo.name === 'editor-api' && normalizedPath.startsWith('editor/')) {
+              // For editor-api, remove the 'editor/' prefix from paths
+              const pathWithoutEditor = normalizedPath.replace(/^editor\//, '');
+              finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEditor}`;
+            }
+            // Regular handling for other repositories
+            else if (normalizedPath.startsWith(`${normalizedRepoName}/`)) {
+              // Replace repository name in path with target folder name
+              const adjustedPath = urlPath.replace(normalizedRepoName, targetFolderName);
+              finalUrl = `${siteUrl}${adjustedPath}`;
             } else {
-              finalUrl = `${siteUrl}/${normalizedRepoName}/${normalizedPath}`;
+              finalUrl = `${siteUrl}/${targetFolderName}/${normalizedPath}`;
             }
           } else {
             // For relative URLs, normalize paths
             const normalizedUrl = url.replace(/^\//, '');
             const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
             
-            // Check if the URL already starts with the repo name
-            if (normalizedUrl.startsWith(`${normalizedRepoName}/`)) {
-              finalUrl = `${siteUrl}/${normalizedUrl}`;
+            // Special handling for engine-v1 repository
+            if (repo.name === 'engine-v1' && normalizedUrl.startsWith('engine/')) {
+              // For engine-v1, remove the 'engine/' prefix from paths
+              const urlWithoutEngine = normalizedUrl.replace(/^engine\//, '');
+              finalUrl = `${siteUrl}/${targetFolderName}/${urlWithoutEngine}`;
+            }
+            // Special handling for editor-api repository
+            else if (repo.name === 'editor-api' && normalizedUrl.startsWith('editor/')) {
+              // For editor-api, remove the 'editor/' prefix from paths
+              const pathWithoutEditor = normalizedUrl.replace(/^editor\//, '');
+              finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEditor}`;
+            }
+            // Regular handling for other repositories
+            else if (normalizedUrl.startsWith(`${normalizedRepoName}/`)) {
+              // Replace repository name in path with target folder name
+              const adjustedUrl = normalizedUrl.replace(normalizedRepoName, targetFolderName);
+              finalUrl = `${siteUrl}/${adjustedUrl}`;
             } else {
-              finalUrl = `${siteUrl}/${normalizedRepoName}/${normalizedUrl}`;
+              finalUrl = `${siteUrl}/${targetFolderName}/${normalizedUrl}`;
             }
           }
           
@@ -186,7 +219,7 @@ function combineSitemaps() {
         console.warn(`Warning: Could not process sitemap for ${repo.name}: ${error.message}`);
       }
     } else {
-      console.warn(`Warning: No sitemap found for ${repo.name}`);
+      console.warn(`Warning: No sitemap found for ${repo.name} at ${sitemapPath}`);
     }
   }
   
@@ -365,7 +398,9 @@ async function buildDocs() {
       // Copy docs to the main docs directory if they exist
       const docsDir = path.join(process.cwd(), 'docs');
       if (fs.existsSync(docsDir)) {
-        const targetDir = path.join(process.cwd(), '..', '..', 'docs', repo.name);
+        // Use "editor" folder for editor-api repository
+        const targetFolderName = repo.name === 'editor-api' ? 'editor' : repo.name;
+        const targetDir = path.join(process.cwd(), '..', '..', 'docs', targetFolderName);
         console.log(`Copying docs from ${docsDir} to ${targetDir}`);
         ensureDir(targetDir);
         copyDirContents(docsDir, targetDir);
