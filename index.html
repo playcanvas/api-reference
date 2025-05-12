@@ -620,9 +620,15 @@
             border-radius: 4px;
             transition: background-color 0.2s;
             margin-right: 8px;
-            width: 145px;
+            min-width: 145px;
             text-align: center;
             margin-bottom: 8px;
+        }
+
+        .module-link.external::after {
+            content: ' ↗';
+            padding-left: 8px;
+            vertical-align: middle;
         }
 
         .module-link.legacy {
@@ -785,6 +791,11 @@
                                 <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
                                 <a href="./engine/" class="module-link">v2.x API (current)</a>
                                 <a href="./engine-v1/" class="module-link legacy">v1.x API (legacy)</a>
+                            </li>
+                            <li class="module-item" data-name="react">
+                                <h3>📖 React</h3>
+                                <p>Use React’s declarative power to build PlayCanvas apps with components, hooks, and JSX.</p>
+                                <a href="https://playcanvas-react.vercel.app/docs/api" class="module-link external">View API Reference</a>
                             </li>
                             <li class="module-item" data-name="web-components">
                                 <h3>📖 Web Components</h3>
