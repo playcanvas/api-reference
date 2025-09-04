@@ -20,7 +20,7 @@
     "url": "https://github.com/playcanvas/api-reference.git"
   },
   "devDependencies": {
-    "serve": "14.2.4"
+    "serve": "^14.2.5"
   },
   "scripts": {
     "build": "node build.mjs",
