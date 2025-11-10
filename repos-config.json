@@ -3,7 +3,7 @@
     {
       "name": "engine",
       "url": "https://github.com/playcanvas/engine.git",
-      "branch": "release-2.12"
+      "branch": "release-2.13"
     },
     {
       "name": "engine-v1",
