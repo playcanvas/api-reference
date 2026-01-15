@@ -34,6 +34,11 @@
       "name": "web-components",
       "url": "https://github.com/playcanvas/web-components.git",
       "branch": "main"
+    },
+    {
+      "name": "splat-transform",
+      "url": "https://github.com/playcanvas/splat-transform.git",
+      "branch": "main"
     }
   ]
 } 
