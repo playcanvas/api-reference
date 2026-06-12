@@ -25,9 +25,12 @@ try {
  */
 function parseBranchArgs() {
   const args = process.argv.slice(2);
-  
+
   // Process arguments in the format: repo=branch (e.g., engine=dev)
   for (const arg of args) {
+    if (arg === '--landing-only') {
+      continue;
+    }
     const match = arg.match(/^([^=]+)=(.+)$/);
     if (match) {
       const [, repoName, branchName] = match;
@@ -93,6 +96,149 @@ function copyDirContents(src, dest) {
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
+  }
+}
+
+/**
+ * Read the version of each cloned repository from its package.json
+ */
+function getRepoVersions() {
+  const versions = {};
+
+  for (const repo of REPOS) {
+    const packagePath = path.join('repos', repo.name, 'package.json');
+    try {
+      const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+      versions[repo.name] = packageJson.version || '';
+    } catch (error) {
+      console.warn(`Warning: Could not read version for ${repo.name}: ${error.message}`);
+      versions[repo.name] = '';
+    }
+  }
+
+  return versions;
+}
+
+/**
+ * Generate the landing page from the index.html template, injecting the
+ * build date and per-repository version numbers
+ */
+function generateLandingPage(versions) {
+  const sourceIndexPath = path.join(__dirname, 'index.html');
+  if (!fs.existsSync(sourceIndexPath)) {
+    throw new Error(`Source index.html not found: ${sourceIndexPath}`);
+  }
+
+  let html = fs.readFileSync(sourceIndexPath, 'utf8');
+
+  const buildDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
+  html = html.replace(/\{\{BUILD_DATE\}\}/g, buildDate);
+
+  html = html.replace(/v\{\{VERSION:([\w-]+)\}\}/g, (match, name) => {
+    return versions[name] ? `v${versions[name]}` : '';
+  });
+
+  // Remove version badges left empty by missing versions
+  html = html.replace(/\s*<span class="landing-card-version">\s*<\/span>/g, '');
+
+  fs.writeFileSync(path.join('docs', 'index.html'), html);
+  console.log('Generated landing page with build date and versions');
+}
+
+/**
+ * Copy TypeDoc's generated stylesheet and icons into docs/assets so the
+ * landing page shares the exact theme of the product references
+ */
+function copySharedAssets() {
+  const engineAssets = path.join('docs', 'engine', 'assets');
+  const stylePath = path.join(engineAssets, 'style.css');
+  if (!fs.existsSync(stylePath)) {
+    throw new Error(`TypeDoc stylesheet not found: ${stylePath}. Run a full build first.`);
+  }
+
+  ensureDir(path.join('docs', 'assets'));
+  fs.copyFileSync(stylePath, path.join('docs', 'assets', 'style.css'));
+  fs.copyFileSync(path.join(engineAssets, 'icons.svg'), path.join('docs', 'assets', 'icons.svg'));
+  console.log('Copied shared TypeDoc assets (style.css, icons.svg)');
+}
+
+/**
+ * Post-process the generated TypeDoc pages so the way back to the landing
+ * page is obvious: turn the toolbar title into a breadcrumb (PlayCanvas /
+ * <product>) and rename the sidebar "Home" link. All replacements are
+ * idempotent so this can re-run over already-processed docs.
+ */
+function postProcessProductDocs() {
+  const breadcrumb = '<a href="/" class="title-home">Home</a><span class="title-sep" aria-hidden="true">/</span>';
+  const breadcrumbCss = `
+/* api-reference: toolbar breadcrumb back to the landing page */
+.tsd-toolbar-contents > .title-home {
+    font-weight: bold;
+    white-space: nowrap;
+}
+.tsd-toolbar-contents > .title-sep {
+    margin: 0 0.5rem;
+    color: var(--color-text-aside);
+}
+@media (max-width: 769px) {
+    .tsd-toolbar-contents > .title-home,
+    .tsd-toolbar-contents > .title-sep {
+        display: none;
+    }
+}
+`;
+
+  const processHtml = (file) => {
+    const html = fs.readFileSync(file, 'utf8');
+    if (html.includes('class="title-home"')) {
+      return false;
+    }
+
+    const updated = html
+      .replace(/<a href="[^"]*" class="title">/, match => breadcrumb + match)
+      .replace(
+        '<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="/">Home</a>',
+        '<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="/">← All API References</a>'
+      );
+
+    if (updated === html) {
+      return false;
+    }
+    fs.writeFileSync(file, updated);
+    return true;
+  };
+
+  const walk = (dir) => {
+    let count = 0;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const entryPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        count += walk(entryPath);
+      } else if (entry.name.endsWith('.html')) {
+        count += processHtml(entryPath) ? 1 : 0;
+      }
+    }
+    return count;
+  };
+
+  for (const repo of REPOS) {
+    const targetFolderName = repo.name === 'editor-api' ? 'editor' : repo.name;
+    const targetDir = path.join('docs', targetFolderName);
+    if (!fs.existsSync(targetDir)) {
+      console.warn(`Warning: No docs found for ${repo.name} at ${targetDir}`);
+      continue;
+    }
+
+    const count = walk(targetDir);
+
+    const stylePath = path.join(targetDir, 'assets', 'style.css');
+    if (fs.existsSync(stylePath) && !fs.readFileSync(stylePath, 'utf8').includes('title-home')) {
+      fs.appendFileSync(stylePath, breadcrumbCss);
+    }
+
+    console.log(`Post-processed ${count} pages in ${targetFolderName}`);
   }
 }
 
@@ -362,22 +508,28 @@ function generateRedirects() {
  */
 async function buildDocs() {
   try {
+    // Skip cloning/building repos and only regenerate the landing page from
+    // an existing docs directory (fast local iteration)
+    const landingOnly = process.argv.includes('--landing-only');
+
     // Parse command line arguments for branch overrides
     parseBranchArgs();
-    
+
     // Create docs directory if it doesn't exist
     ensureDir('docs');
-    
+
     // Create .nojekyll file to prevent GitHub Pages from using Jekyll
     console.log('Creating .nojekyll file...');
     fs.writeFileSync(path.join('docs', '.nojekyll'), '');
-    
-    // Remove existing repos directory and create a new one
-    deleteDir('repos');
-    ensureDir('repos');
-    
+
+    if (!landingOnly) {
+      // Remove existing repos directory and create a new one
+      deleteDir('repos');
+      ensureDir('repos');
+    }
+
     // Process each repository
-    for (const repo of REPOS) {
+    for (const repo of landingOnly ? [] : REPOS) {
       console.log(`\n========== Processing ${repo.name} (branch: ${repo.branch}) ==========`);
       
       // Change to repos directory
@@ -412,33 +564,39 @@ async function buildDocs() {
       console.log(`Completed processing ${repo.name}`);
     }
     
-    // Copy the index.html to the docs directory
-    console.log('\nCopying index.html file...');
-    const sourceIndexPath = path.join(__dirname, 'index.html');
-    if (!fs.existsSync(sourceIndexPath)) {
-      throw new Error(`Source index.html not found: ${sourceIndexPath}`);
-    }
-    fs.copyFileSync(sourceIndexPath, path.join('docs', 'index.html'));
-    
+    // Make the route back to the landing page obvious on every product page
+    console.log('\nPost-processing product docs...');
+    postProcessProductDocs();
+
+    // Copy TypeDoc's stylesheet and icons for the landing page to share
+    console.log('\nCopying shared TypeDoc assets...');
+    copySharedAssets();
+
+    // Generate the landing page with build date and repo versions
+    console.log('Generating landing page...');
+    generateLandingPage(getRepoVersions());
+
     // Copy favicon
     console.log('Copying favicon...');
     fs.copyFileSync('favicon.ico', path.join('docs', 'favicon.ico'));
-    
+
     // Copy assets directory if it exists
     if (fs.existsSync('assets')) {
       console.log('Copying assets directory...');
       ensureDir(path.join('docs', 'assets'));
       copyDirContents('assets', path.join('docs', 'assets'));
     }
-    
-    // Generate combined sitemap
-    console.log('\nGenerating combined sitemap...');
-    combineSitemaps();
-    
-    // Generate redirects for old URLs
-    console.log('\nGenerating redirects for old URL structure...');
-    generateRedirects();
-    
+
+    if (!landingOnly) {
+      // Generate combined sitemap
+      console.log('\nGenerating combined sitemap...');
+      combineSitemaps();
+
+      // Generate redirects for old URLs
+      console.log('\nGenerating redirects for old URL structure...');
+      generateRedirects();
+    }
+
     console.log('\nDocumentation build complete. Run "npm run serve" to view it.');
   } catch (error) {
     console.error(`\nError: ${error.message}`);
