@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="assets/landing.css">
 </head>
 <body>
-    <script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";</script>
+    <script>(() => {
+        const theme = localStorage.getItem("tsd-theme");
+        document.documentElement.dataset.theme = ["os", "light", "dark"].includes(theme) ? theme : "os";
+    })();</script>
     <header class="tsd-page-toolbar">
         <div class="tsd-toolbar-contents container">
             <a href="./" class="title">PlayCanvas API Reference</a>
@@ -23,7 +26,7 @@
                 <a href="https://forum.playcanvas.com/">Forum</a>
                 <a href="https://github.com/playcanvas">GitHub</a>
             </div>
-            <a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a>
+            <a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a>
         </div>
     </header>
     <div class="container container-main">
@@ -58,7 +61,7 @@
                         <h3>📖 React <span class="landing-card-version">External</span></h3>
                         <p>Use React’s declarative power to build PlayCanvas apps with components, hooks, and JSX.</p>
                         <div class="landing-card-links">
-                            <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank" class="landing-link external">View API Reference</a>
+                            <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank" rel="noopener noreferrer" class="landing-link external">View API Reference</a>
                         </div>
                     </li>
                     <li class="landing-card">
@@ -137,7 +140,7 @@
                     <h4 class="landing-nav-category">PlayCanvas Development</h4>
                     <a href="engine/">Engine</a>
                     <a href="editor/">Editor</a>
-                    <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank">React</a>
+                    <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank" rel="noopener noreferrer">React</a>
                     <a href="web-components/">Web Components</a>
                     <h4 class="landing-nav-category">Foundational Libraries</h4>
                     <a href="pcui/">PCUI</a>
@@ -149,23 +152,27 @@
         </div>
     </div>
     <footer>
-        <p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a> on {{BUILD_DATE}}</p>
+        <p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank" rel="noopener noreferrer">TypeDoc</a> on {{BUILD_DATE}}</p>
     </footer>
     <div class="overlay"></div>
     <script>
         const themeSelect = document.getElementById("tsd-theme");
-        themeSelect.value = localStorage.getItem("tsd-theme") || "os";
+        // dataset.theme was validated against os/light/dark on load
+        themeSelect.value = document.documentElement.dataset.theme;
         themeSelect.addEventListener("change", () => {
             localStorage.setItem("tsd-theme", themeSelect.value);
             document.documentElement.dataset.theme = themeSelect.value;
         });
 
-        document.getElementById("tsd-toolbar-menu-trigger").addEventListener("click", (e) => {
+        const menuTrigger = document.getElementById("tsd-toolbar-menu-trigger");
+        menuTrigger.addEventListener("click", (e) => {
             e.preventDefault();
-            document.documentElement.classList.toggle("has-menu");
+            const open = document.documentElement.classList.toggle("has-menu");
+            menuTrigger.setAttribute("aria-expanded", String(open));
         });
         document.querySelector(".overlay").addEventListener("click", () => {
             document.documentElement.classList.remove("has-menu");
+            menuTrigger.setAttribute("aria-expanded", "false");
         });
     </script>
 </body>

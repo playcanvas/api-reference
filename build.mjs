@@ -192,16 +192,16 @@ function postProcessProductDocs() {
 
   const processHtml = (file) => {
     const html = fs.readFileSync(file, 'utf8');
-    if (html.includes('class="title-home"')) {
-      return false;
-    }
+    let updated = html;
 
-    const updated = html
-      .replace(/<a href="[^"]*" class="title">/, match => breadcrumb + match)
-      .replace(
-        '<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="/">Home</a>',
-        '<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="/">← All API References</a>'
-      );
+    // Each replacement is independently idempotent
+    if (!updated.includes('class="title-home"')) {
+      updated = updated.replace(/<a href="[^"]*" class="title">/, match => breadcrumb + match);
+    }
+    updated = updated.replace(
+      /(<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="[^"]*">)Home(<\/a>)/,
+      '$1← All API References$2'
+    );
 
     if (updated === html) {
       return false;
