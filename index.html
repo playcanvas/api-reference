@@ -1,909 +1,179 @@
 <!DOCTYPE html>
-<html class="default" data-theme="dark" lang="en">
+<html class="default" lang="en" data-base="./">
 <head>
     <meta charset="utf-8">
+    <link rel="canonical" href="https://api.playcanvas.com/">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <title>PlayCanvas API Reference</title>
     <meta name="description" content="API Reference for the PlayCanvas libraries">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="favicon.ico">
-    <style>
-        :root {
-            --light-color-background: #fff;
-            --light-color-background-secondary: #fbfbfb;
-            --light-color-warning-text: #222;
-            --light-color-background-warning: #f0ad4e;
-            --light-color-text: #222;
-            --light-color-text-aside: #707070;
-            --light-color-link: #4da6ff;
-            --light-color-menu-divider: #eee;
-            --light-color-menu-divider-focus: #000;
-            --light-color-menu-label: #707070;
-            --light-color-panel: #fbfbfb;
-            --light-color-panel-divider: #eee;
-            --light-color-comment-tag: #707070;
-            --light-color-comment-tag-text: #fff;
-            --light-color-ts: #9600ff;
-            --light-color-ts-interface: #647f1b;
-            --light-color-ts-enum: #937210;
-            --light-color-ts-class: #0672de;
-            --light-color-ts-private: #707070;
-            --light-color-toolbar: #fbfbfb;
-            --light-color-toolbar-text: #333;
-            --light-icon-filter: invert(0);
-            --light-external-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='10' height='10'><path fill-opacity='0' stroke='%23000' stroke-width='10' d='m43,35H5v60h60V57M45,5v10l10,10-30,30 20,20 30-30 10,10h10V5z'/></svg>");
-
-            --dark-color-background: #1e1e1e;
-            --dark-color-background-secondary: #2d2d2d;
-            --dark-color-warning-text: #222;
-            --dark-color-background-warning: #f0ad4e;
-            --dark-color-text: #e3e3e3;
-            --dark-color-text-aside: #9b9b9b;
-            --dark-color-link: #4da6ff;
-            --dark-color-menu-divider: #424242;
-            --dark-color-menu-divider-focus: #fff;
-            --dark-color-menu-label: #9b9b9b;
-            --dark-color-panel: #2d2d2d;
-            --dark-color-panel-divider: #424242;
-            --dark-color-comment-tag: #9b9b9b;
-            --dark-color-comment-tag-text: #fff;
-            --dark-color-ts: #b382ff;
-            --dark-color-ts-interface: #a5c261;
-            --dark-color-ts-enum: #daa520;
-            --dark-color-ts-class: #4da6ff;
-            --dark-color-ts-private: #9b9b9b;
-            --dark-color-toolbar: #2d2d2d;
-            --dark-color-toolbar-text: #e3e3e3;
-            --dark-icon-filter: invert(1);
-            --dark-external-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='10' height='10'><path fill-opacity='0' stroke='%23fff' stroke-width='10' d='m43,35H5v60h60V57M45,5v10l10,10-30,30 20,20 30-30 10,10h10V5z'/></svg>");
-        }
-
-        /* Default dark theme to match TypeDoc */
-        html {
-            color-scheme: dark;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--dark-color-text);
-            background-color: var(--dark-color-background);
-        }
-
-        html[data-theme="light"] body {
-            color: var(--light-color-text);
-            background-color: var(--light-color-background);
-            color-scheme: light;
-        }
-
-        .tsd-page-toolbar {
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            color: var(--dark-color-toolbar-text);
-            background-color: var(--dark-color-toolbar);
-            border-bottom: 1px solid var(--dark-color-panel-divider);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        html[data-theme="light"] .tsd-page-toolbar {
-            color: var(--light-color-toolbar-text);
-            background-color: var(--light-color-toolbar);
-            border-bottom-color: var(--light-color-panel-divider);
-        }
-
-        .tsd-page-toolbar a {
-            color: var(--dark-color-toolbar-text);
-            text-decoration: none;
-        }
-
-        html[data-theme="light"] .tsd-page-toolbar a {
-            color: var(--light-color-toolbar-text);
-        }
-
-        .tsd-page-toolbar a:hover {
-            text-decoration: underline;
-        }
-
-        .tsd-page-toolbar .tsd-toolbar-contents {
-            display: flex;
-            min-height: 40px;
-            padding: 8px 16px;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: normal;
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .title a {
-            display: flex;
-            align-items: center;
-        }
-
-        .title em {
-            font-style: normal;
-            font-weight: bold;
-        }
-
-        .tsd-toolbar-links {
-            display: flex;
-            gap: 16px;
-            font-size: 14px;
-            margin: 0 20px;
-        }
-
-        .tsd-toolbar-links a {
-            white-space: nowrap;
-        }
-
-        .tsd-widget {
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-            margin-left: 16px;
-        }
-
-        .tsd-widget:hover {
-            opacity: 1;
-        }
-
-        .tsd-widget.search {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23e3e3e3"></path></svg>') 0 0 no-repeat;
-            filter: var(--dark-icon-filter);
-            height: 16px;
-            width: 16px;
-        }
-
-        html[data-theme="light"] .tsd-widget.search {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" fill="%23333"></path></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
-        }
-
-        .tsd-widget.menu {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23e3e3e3" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
-            filter: var(--dark-icon-filter);
-            height: 16px;
-            width: 16px;
-        }
-
-        html[data-theme="light"] .tsd-widget.menu {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
-        }
-
-        .tsd-widget.theme {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23e3e3e3" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
-            filter: var(--dark-icon-filter);
-            height: 16px;
-            width: 16px;
-        }
-
-        html[data-theme="light"] .tsd-widget.theme {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23333" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-1.5v-17a8.5 8.5 0 0 1 0 17Z"/></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
-        }
-
-        .tsd-page-title {
-            padding: 70px 0 20px;
-            margin: 0 0 40px;
-            background-color: var(--dark-color-panel);
-            border-bottom: 1px solid var(--dark-color-panel-divider);
-        }
-
-        html[data-theme="light"] .tsd-page-title {
-            background-color: var(--light-color-panel);
-            border-bottom-color: var(--light-color-panel-divider);
-        }
-
-        .tsd-page-title .container {
-            padding: 0 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .tsd-page-title h1 {
-            font-size: 32px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .row {
-            display: flex;
-            position: relative;
-        }
-
-        .col-4 {
-            flex: 0 0 25%;
-            max-width: 25%;
-            padding: 0 10px;
-            position: relative;
-        }
-
-        .col-8 {
-            flex: 0 0 75%;
-            max-width: 75%;
-            padding: 0 10px;
-            position: relative;
-        }
-
-        .tsd-navigation {
-            padding: 0 0 0 20px;
-            margin: 0 0 40px;
-        }
-        
-        .tsd-navigation.primary {
-            padding-bottom: 40px;
-            position: sticky;
-            top: 70px;
-            z-index: 0;
-        }
-
-        .tsd-navigation a {
-            display: block;
-            padding: 4px 0;
-            color: var(--dark-color-text);
-            text-decoration: none;
-        }
-
-        html[data-theme="light"] .tsd-navigation a {
-            color: var(--light-color-text);
-        }
-
-        .tsd-navigation a:hover {
-            color: var(--light-color-link);
-            text-decoration: underline;
-        }
-
-        html[data-theme="light"] .tsd-navigation a:hover {
-            color: var(--dark-color-link);
-        }
-        
-        .tsd-navigation h3 {
-            margin: 0;
-            padding: 0;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .tsd-navigation ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        
-        .tsd-navigation li {
-            margin: 0 0 8px;
-            position: relative;
-        }
-
-        .tsd-panel {
-            background-color: var(--dark-color-background-secondary);
-            border-radius: 4px;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        html[data-theme="light"] .tsd-panel {
-            background-color: var(--light-color-background-secondary);
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
-        }
-
-        .tsd-panel.tsd-module {
-            margin-bottom: 20px;
-        }
-
-        .tsd-panel h3 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .tsd-panel-group {
-            margin-bottom: 40px;
-        }
-
-        .tsd-module-index {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .tsd-panel-margin {
-            margin-bottom: 20px;
-        }
-
-        .tsd-panel > h1, .tsd-panel > h2, .tsd-panel > h3, .tsd-panel > h4 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .tsd-flag {
-            display: inline-block;
-            padding: 2px 6px;
-            margin-top: -2px;
-            margin-left: 8px;
-            color: var(--light-color-comment-tag-text);
-            background-color: var(--light-color-comment-tag);
-            font-weight: 500;
-            font-size: 12px;
-            border-radius: 4px;
-            vertical-align: middle;
-        }
-
-        html[data-theme="light"] .tsd-flag {
-            color: var(--dark-color-comment-tag-text);
-            background-color: var(--dark-color-comment-tag);
-        }
-
-        .tsd-anchor {
-            position: absolute;
-            top: -100px;
-        }
-
-        .tsd-footer {
-            background-color: var(--dark-color-panel);
-            border-top: 1px solid var(--dark-color-panel-divider);
-            padding: 20px 0;
-            margin-top: 60px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--dark-color-text-aside);
-        }
-
-        html[data-theme="light"] .tsd-footer {
-            background-color: var(--light-color-panel);
-            border-top-color: var(--light-color-panel-divider);
-            color: var(--light-color-text-aside);
-        }
-
-        .tsd-footer .container {
-            padding: 0 20px;
-        }
-
-        .tsd-footer a {
-            color: var(--dark-color-link);
-            text-decoration: none;
-        }
-
-        html[data-theme="light"] .tsd-footer a {
-            color: var(--light-color-link);
-        }
-
-        .tsd-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .tsd-search {
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            background-color: var(--light-color-panel);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s, visibility 0.2s;
-            border-bottom: 1px solid var(--light-color-panel-divider);
-            z-index: 2;
-        }
-
-        html[data-theme="light"] .tsd-search {
-            background-color: var(--dark-color-panel);
-            border-bottom-color: var(--dark-color-panel-divider);
-        }
-
-        .tsd-search.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .tsd-search .container {
-            display: flex;
-            padding: 12px 20px;
-            position: relative;
-            height: 40px;
-        }
-
-        .tsd-search input {
-            flex: 1;
-            border: 0;
-            background: transparent;
-            padding: 0;
-            font-family: inherit;
-            font-size: 16px;
-            color: var(--light-color-text);
-            outline: 0;
-        }
-
-        html[data-theme="light"] .tsd-search input {
-            color: var(--dark-color-text);
-        }
-
-        .tsd-search input::-webkit-input-placeholder {
-            color: var(--light-color-text-aside);
-        }
-
-        html[data-theme="light"] .tsd-search input::-webkit-input-placeholder {
-            color: var(--dark-color-text-aside);
-        }
-
-        .tsd-search-close {
-            position: absolute;
-            right: 20px;
-            top: 12px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z" fill="%23333"></path></svg>') 0 0 no-repeat;
-            filter: var(--light-icon-filter);
-            height: 16px;
-            width: 16px;
-            opacity: 0.7;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        html[data-theme="light"] .tsd-search-close {
-            filter: var(--dark-icon-filter);
-        }
-
-        .tsd-search-close:hover {
-            opacity: 1;
-        }
-
-        .tsd-search-results {
-            position: absolute;
-            top: 41px;
-            width: 100%;
-            left: 0;
-            box-sizing: border-box;
-            background-color: var(--light-color-background);
-            border-bottom: 1px solid var(--light-color-panel-divider);
-            border-left: 1px solid var(--light-color-panel-divider);
-            border-right: 1px solid var(--light-color-panel-divider);
-            padding: 10px 20px;
-            display: none;
-            max-height: 75vh;
-            overflow-y: auto;
-        }
-
-        html[data-theme="light"] .tsd-search-results {
-            background-color: var(--dark-color-background);
-            border-color: var(--dark-color-panel-divider);
-        }
-
-        .tsd-search.has-results .tsd-search-results {
-            display: block;
-        }
-
-        .tsd-search-result-group {
-            margin: 0 0 12px;
-        }
-
-        .tsd-search-result-group > h2 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 8px;
-        }
-
-        .tsd-search-result-item {
-            padding: 4px 0;
-        }
-
-        .tsd-search-result-item a {
-            color: var(--light-color-text);
-            text-decoration: none;
-            display: block;
-        }
-
-        html[data-theme="light"] .tsd-search-result-item a {
-            color: var(--dark-color-text);
-        }
-
-        .tsd-search-result-item a:hover {
-            color: var(--light-color-link);
-            text-decoration: underline;
-        }
-
-        html[data-theme="light"] .tsd-search-result-item a:hover {
-            color: var(--dark-color-link);
-        }
-
-        .tsd-search-result-item .tsd-kind-icon {
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-
-        .tsd-filter-options {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .tsd-filter-group {
-            background-color: var(--light-color-background-secondary);
-            border-radius: 4px;
-            padding: 8px 12px;
-            border: 1px solid var(--light-color-panel-divider);
-        }
-
-        html[data-theme="light"] .tsd-filter-group {
-            background-color: var(--dark-color-background-secondary);
-            border-color: var(--dark-color-panel-divider);
-        }
-
-        .tsd-filter-group h5 {
-            margin: 0 0 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .tsd-filter-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .tsd-filter-input {
-            margin-right: 6px;
-        }
-
-        /* Module-specific adjustments for our content */
-        .module-item {
-            background-color: var(--dark-color-background-secondary);
-            border-radius: 4px;
-            padding: 20px;
-            border: 1px solid var(--dark-color-panel-divider);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        html[data-theme="light"] .module-item {
-            background-color: var(--light-color-background-secondary);
-            border-color: var(--light-color-panel-divider);
-        }
-
-        .module-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        html[data-theme="light"] .module-item:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .module-item h3 {
-            margin-top: 0;
-            color: var(--dark-color-text);
-        }
-
-        html[data-theme="light"] .module-item h3 {
-            color: var(--light-color-text);
-        }
-
-        .module-item p {
-            margin-bottom: 20px;
-            color: var(--dark-color-text-aside);
-        }
-
-        html[data-theme="light"] .module-item p {
-            color: var(--light-color-text-aside);
-        }
-
-        .module-link {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: var(--dark-color-link);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            margin-right: 8px;
-            min-width: 145px;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .module-link.external::after {
-            content: ' ↗';
-            padding-left: 8px;
-            vertical-align: middle;
-        }
-
-        .module-link.legacy {
-            background-color: rgba(77, 166, 255, 0.3);
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        html[data-theme="light"] .module-link.legacy {
-            background-color: rgba(0, 102, 204, 0.3);
-            color: rgba(0, 0, 0, 0.6);
-        }
-
-        .module-link:hover {
-            background-color: #2a80e9;
-            text-decoration: none;
-        }
-
-        html[data-theme="light"] .module-link:hover {
-            background-color: #0066cc;
-        }
-        
-        /* Mobile responsiveness */
-        @media (max-width: 900px) {
-            .row {
-                flex-direction: column;
-            }
-            
-            .col-4, .col-8 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-            
-            .tsd-navigation.primary {
-                position: static;
-            }
-
-            .tsd-toolbar-links {
-                display: none;
-            }
-
-            .title {
-                max-width: 70%;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .title {
-                font-size: 14px;
-            }
-        }
-    </style>
-    <script>
-        // Function to set theme - use TypeDoc's localStorage key for consistency
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('tsd-theme', theme);
-        }
-
-        // Check for saved theme preference in TypeDoc's localStorage key
-        const savedTheme = localStorage.getItem('tsd-theme');
-        if (savedTheme === 'light' || savedTheme === 'dark') {
-            setTheme(savedTheme);
-        } else {
-            // Check for system preference
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
-        }
-
-        // Listen for system theme changes if no saved preference
-        if (window.matchMedia) {
-            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-                if (!localStorage.getItem('tsd-theme')) {
-                    setTheme(e.matches ? 'light' : 'dark');
-                }
-            });
-        }
-
-        // Add theme toggle functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.querySelector('.tsd-widget.theme');
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
-                    const currentTheme = document.documentElement.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    setTheme(newTheme);
-                });
-            }
-        });
-    </script>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/landing.css">
 </head>
 <body>
-    <a class="tsd-anchor" id="top"></a>
-    
+    <script>(() => {
+        const theme = localStorage.getItem("tsd-theme");
+        document.documentElement.dataset.theme = ["os", "light", "dark"].includes(theme) ? theme : "os";
+    })();</script>
     <header class="tsd-page-toolbar">
         <div class="tsd-toolbar-contents container">
-            <div class="title">
-                <a href="./index.html">
-                    <em>PlayCanvas</em> API Reference
-                </a>
+            <a href="./" class="title">PlayCanvas API Reference</a>
+            <div id="tsd-toolbar-links">
+                <a href="https://developer.playcanvas.com/">Developer Site</a>
+                <a href="https://blog.playcanvas.com/">Blog</a>
+                <a href="https://discord.gg/RSaMRzg">Discord</a>
+                <a href="https://forum.playcanvas.com/">Forum</a>
+                <a href="https://github.com/playcanvas">GitHub</a>
             </div>
-            <div class="tsd-toolbar-links">
-                <a href="https://developer.playcanvas.com" target="_blank">Developer Site</a>
-                <a href="https://forum.playcanvas.com" target="_blank">Forum</a>
-                <a href="https://blog.playcanvas.com" target="_blank">Blog</a>
-                <a href="https://github.com/playcanvas" target="_blank">GitHub</a>
-                <a href="https://discord.gg/RSaMRzg" target="_blank">Discord</a>
-            </div>
-            <div id="tsd-widgets">
-                <a href="#" class="tsd-widget search" data-show=".tsd-search" title="Search"></a>
-                <a href="#" class="tsd-widget menu" data-show=".menu-popup" title="Menu"></a>
-                <a href="#" class="tsd-widget theme" data-show=".theme-popup" title="Theme"></a>
-            </div>
+            <a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a>
         </div>
     </header>
-    
-    <div class="tsd-search">
-        <div class="container">
-            <input type="text" class="tsd-search-field" placeholder="Search..." id="searchInput">
-            <div class="tsd-search-close" id="searchClose"></div>
-        </div>
-        <div class="tsd-search-results container"></div>
-    </div>
-
-    <div class="tsd-page-title">
-        <div class="container">
-            <h1>PlayCanvas API Reference</h1>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <nav class="tsd-navigation primary">
-                    <h3>API References</h3>
-                    <ul>
-                        <li><a href="./engine/">Engine</a></li>
-                        <li><a href="./web-components/">Web Components</a></li>
-                        <li><a href="./editor/">Editor</a></li>
-                        <li><a href="./observer/">Observer</a></li>
-                        <li><a href="./pcui/">PCUI</a></li>
-                        <li><a href="./pcui-graph/">PCUI Graph</a></li>
-                        <li><a href="./splat-transform/">Splat Transform</a></li>
-                    </ul>
-                </nav>
+    <div class="container container-main">
+        <div class="col-content">
+            <div class="tsd-page-title">
+                <h1>PlayCanvas API Reference</h1>
             </div>
-            
-            <div class="col-8">
-                <div class="tsd-panel-group">
-                    <div class="tsd-panel tsd-typography">
-                        <p>Welcome to the PlayCanvas API references. These API documentation sets provide detailed information about the various PlayCanvas libraries and tools. Select one of the modules below to explore its API reference.</p>
-                    </div>
-                
-                    <section class="tsd-panel-group tsd-module">
-                        <h2>Available API References</h2>
-                        <ul class="tsd-module-index" id="searchableModules">
-                            <li class="module-item" data-name="engine">
-                                <h3>📖 Engine</h3>
-                                <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
-                                <a href="./engine/" class="module-link">v2.x API (current)</a>
-                                <a href="./engine-v1/" class="module-link legacy">v1.x API (legacy)</a>
-                            </li>
-                            <li class="module-item" data-name="editor">
-                                <h3>📖 Editor</h3>
-                                <p>API for interfacing with the PlayCanvas Editor.</p>
-                                <a href="./editor/" class="module-link">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="react">
-                                <h3>📖 React</h3>
-                                <p>Use React’s declarative power to build PlayCanvas apps with components, hooks, and JSX.</p>
-                                <a href="https://developer.playcanvas.com/user-manual/react/api" class="module-link external">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="web-components">
-                                <h3>📖 Web Components</h3>
-                                <p>Custom HTML elements for building declarative PlayCanvas applications.</p>
-                                <a href="./web-components/" class="module-link">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="pcui">
-                                <h3>📖 PCUI</h3>
-                                <p>User interface component library for creating tools and editors.</p>
-                                <a href="./pcui/" class="module-link">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="pcui-graph">
-                                <h3>📖 PCUI Graph</h3>
-                                <p>Graph user interface components for creating node-based editors.</p>
-                                <a href="./pcui-graph/" class="module-link">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="observer">
-                                <h3>📖 Observer</h3>
-                                <p>Reactive data observation and binding system.</p>
-                                <a href="./observer/" class="module-link">View API Reference</a>
-                            </li>
-                            <li class="module-item" data-name="splat-transform">
-                                <h3>📖 Splat Transform</h3>
-                                <p>Library and CLI tool for converting and editing 3D Gaussian splats.</p>
-                                <a href="./splat-transform/" class="module-link">View API Reference</a>
-                            </li>
-                        </ul>
-                    </section>
+            <section class="tsd-panel tsd-typography">
+                <p>Welcome to the PlayCanvas API references. These API documentation sets provide detailed
+                information about the various PlayCanvas libraries and tools. Select a product below to
+                explore its API reference.</p>
+            </section>
+            <section class="tsd-panel">
+                <h2>PlayCanvas Development</h2>
+                <ul class="landing-cards">
+                    <li class="landing-card">
+                        <h3>📖 Engine <span class="landing-card-version">v{{VERSION:engine}}</span></h3>
+                        <p>The core PlayCanvas engine featuring rendering, physics, animation, sound, and more.</p>
+                        <div class="landing-card-links">
+                            <a href="engine/" class="landing-link">View API Reference</a>
+                            <a href="engine-v1/" class="landing-link legacy">v{{VERSION:engine-v1}} (legacy)</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 Editor <span class="landing-card-version">v{{VERSION:editor-api}}</span></h3>
+                        <p>API for interfacing with the PlayCanvas Editor.</p>
+                        <div class="landing-card-links">
+                            <a href="editor/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 React <span class="landing-card-version">External</span></h3>
+                        <p>Use React’s declarative power to build PlayCanvas apps with components, hooks, and JSX.</p>
+                        <div class="landing-card-links">
+                            <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank" rel="noopener noreferrer" class="landing-link external">View API Reference</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 Web Components <span class="landing-card-version">v{{VERSION:web-components}}</span></h3>
+                        <p>Custom HTML elements for building declarative PlayCanvas applications.</p>
+                        <div class="landing-card-links">
+                            <a href="web-components/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <section class="tsd-panel">
+                <h2>Foundational Libraries</h2>
+                <ul class="landing-cards">
+                    <li class="landing-card">
+                        <h3>📖 PCUI <span class="landing-card-version">v{{VERSION:pcui}}</span></h3>
+                        <p>User interface component library for creating tools and editors.</p>
+                        <div class="landing-card-links">
+                            <a href="pcui/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 PCUI Graph <span class="landing-card-version">v{{VERSION:pcui-graph}}</span></h3>
+                        <p>Graph user interface components for creating node-based editors.</p>
+                        <div class="landing-card-links">
+                            <a href="pcui-graph/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 Observer <span class="landing-card-version">v{{VERSION:observer}}</span></h3>
+                        <p>Reactive data observation and binding system.</p>
+                        <div class="landing-card-links">
+                            <a href="observer/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                    <li class="landing-card">
+                        <h3>📖 Splat Transform <span class="landing-card-version">v{{VERSION:splat-transform}}</span></h3>
+                        <p>Library and CLI tool for converting and editing 3D Gaussian splats.</p>
+                        <div class="landing-card-links">
+                            <a href="splat-transform/" class="landing-link">View API Reference</a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="col-sidebar">
+            <div class="page-menu">
+                <div class="tsd-navigation settings">
+                    <details class="tsd-accordion">
+                        <summary class="tsd-accordion-summary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+                            <h3>Settings</h3>
+                        </summary>
+                        <div class="tsd-accordion-details">
+                            <div class="tsd-theme-toggle">
+                                <label class="settings-label" for="tsd-theme">Theme</label>
+                                <select id="tsd-theme">
+                                    <option value="os">OS</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
+            <div class="site-menu">
+                <nav id="tsd-sidebar-links" class="tsd-navigation">
+                    <a href="https://developer.playcanvas.com/" class="tsd-nav-link">Developer Site</a>
+                    <a href="https://blog.playcanvas.com/" class="tsd-nav-link">Blog</a>
+                    <a href="https://discord.gg/RSaMRzg" class="tsd-nav-link">Discord</a>
+                    <a href="https://forum.playcanvas.com/" class="tsd-nav-link">Forum</a>
+                    <a href="https://github.com/playcanvas" class="tsd-nav-link">GitHub</a>
+                </nav>
+                <nav class="tsd-navigation">
+                    <h4 class="landing-nav-category">PlayCanvas Development</h4>
+                    <a href="engine/">Engine</a>
+                    <a href="editor/">Editor</a>
+                    <a href="https://developer.playcanvas.com/user-manual/react/api" target="_blank" rel="noopener noreferrer">React</a>
+                    <a href="web-components/">Web Components</a>
+                    <h4 class="landing-nav-category">Foundational Libraries</h4>
+                    <a href="pcui/">PCUI</a>
+                    <a href="pcui-graph/">PCUI Graph</a>
+                    <a href="observer/">Observer</a>
+                    <a href="splat-transform/">Splat Transform</a>
+                </nav>
+            </div>
         </div>
     </div>
-
-    <footer class="tsd-footer">
-        <div class="container">
-            <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-            <p>Documentation generated on <span id="current-date"></span></p>
-        </div>
+    <footer>
+        <p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank" rel="noopener noreferrer">TypeDoc</a> on {{BUILD_DATE}}</p>
     </footer>
-    
+    <div class="overlay"></div>
     <script>
-        // Set current date in footer
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
-        
-        // Search functionality
-        const searchBtn = document.querySelector('.tsd-widget.search');
-        const searchDiv = document.querySelector('.tsd-search');
-        const searchInput = document.getElementById('searchInput');
-        const searchClose = document.getElementById('searchClose');
-        const moduleItems = document.querySelectorAll('.module-item');
-        
-        searchBtn.addEventListener('click', (e) => {
+        const themeSelect = document.getElementById("tsd-theme");
+        // dataset.theme was validated against os/light/dark on load
+        themeSelect.value = document.documentElement.dataset.theme;
+        themeSelect.addEventListener("change", () => {
+            localStorage.setItem("tsd-theme", themeSelect.value);
+            document.documentElement.dataset.theme = themeSelect.value;
+        });
+
+        const menuTrigger = document.getElementById("tsd-toolbar-menu-trigger");
+        menuTrigger.addEventListener("click", (e) => {
             e.preventDefault();
-            searchDiv.classList.toggle('active');
-            if (searchDiv.classList.contains('active')) {
-                searchInput.focus();
-            }
+            const open = document.documentElement.classList.toggle("has-menu");
+            menuTrigger.setAttribute("aria-expanded", String(open));
         });
-        
-        searchClose.addEventListener('click', () => {
-            searchDiv.classList.remove('active');
-        });
-        
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            
-            if (searchTerm) {
-                searchDiv.classList.add('has-results');
-            } else {
-                searchDiv.classList.remove('has-results');
-            }
-            
-            moduleItems.forEach(item => {
-                const moduleName = item.getAttribute('data-name').toLowerCase();
-                const moduleTitle = item.querySelector('h3').textContent.toLowerCase();
-                const moduleDesc = item.querySelector('p').textContent.toLowerCase();
-                
-                if (moduleName.includes(searchTerm) || 
-                    moduleTitle.includes(searchTerm) || 
-                    moduleDesc.includes(searchTerm)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-        
-        // Close search on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && searchDiv.classList.contains('active')) {
-                searchDiv.classList.remove('active');
-                searchDiv.classList.remove('has-results');
-            }
-        });
-        
-        // Menu toggle functionality
-        const menuBtn = document.querySelector('.tsd-widget.menu');
-        
-        menuBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelector('.col-4').classList.toggle('visible');
+        document.querySelector(".overlay").addEventListener("click", () => {
+            document.documentElement.classList.remove("has-menu");
+            menuTrigger.setAttribute("aria-expanded", "false");
         });
     </script>
 </body>
-</html> 
+</html>
