@@ -10,6 +10,9 @@
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/landing.css">
+    <script defer src="assets/main.js"></script>
+    <script async src="assets/icons.js" id="tsd-icons-script"></script>
+    <script async src="assets/search.js" id="tsd-search-script"></script>
 </head>
 <body>
     <script>(() => {
@@ -26,6 +29,12 @@
                 <a href="https://forum.playcanvas.com/">Forum</a>
                 <a href="https://github.com/playcanvas">GitHub</a>
             </div>
+            <button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button>
+            <dialog id="tsd-search" aria-label="Search">
+                <input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+                <ul role="listbox" id="tsd-search-results"></ul>
+                <div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div>
+            </dialog>
             <a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a>
         </div>
     </header>
@@ -155,25 +164,5 @@
         <p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank" rel="noopener noreferrer">TypeDoc</a> on {{BUILD_DATE}}</p>
     </footer>
     <div class="overlay"></div>
-    <script>
-        const themeSelect = document.getElementById("tsd-theme");
-        // dataset.theme was validated against os/light/dark on load
-        themeSelect.value = document.documentElement.dataset.theme;
-        themeSelect.addEventListener("change", () => {
-            localStorage.setItem("tsd-theme", themeSelect.value);
-            document.documentElement.dataset.theme = themeSelect.value;
-        });
-
-        const menuTrigger = document.getElementById("tsd-toolbar-menu-trigger");
-        menuTrigger.addEventListener("click", (e) => {
-            e.preventDefault();
-            const open = document.documentElement.classList.toggle("has-menu");
-            menuTrigger.setAttribute("aria-expanded", String(open));
-        });
-        document.querySelector(".overlay").addEventListener("click", () => {
-            document.documentElement.classList.remove("has-menu");
-            menuTrigger.setAttribute("aria-expanded", "false");
-        });
-    </script>
 </body>
 </html>

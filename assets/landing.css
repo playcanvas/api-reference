@@ -87,6 +87,29 @@
     content: " ↗";
 }
 
+/* Product badges on combined search results. The build's merged search index
+   tags each row with a product-<folder> class; TypeDoc's search client copies
+   row classes onto the result <li> verbatim. */
+#tsd-search-results li[class*="product-"] .text::after {
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 0.25rem;
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-aside);
+    font-size: 0.75rem;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#tsd-search-results li.product-engine .text::after          { content: "Engine"; }
+#tsd-search-results li.product-editor .text::after          { content: "Editor"; }
+#tsd-search-results li.product-pcui .text::after            { content: "PCUI"; }
+#tsd-search-results li.product-pcui-graph .text::after      { content: "PCUI Graph"; }
+#tsd-search-results li.product-observer .text::after        { content: "Observer"; }
+#tsd-search-results li.product-web-components .text::after  { content: "Web Components"; }
+#tsd-search-results li.product-splat-transform .text::after { content: "Splat Transform"; }
+
 .landing-nav-category {
     margin: 1rem 0 0.25rem;
     color: var(--color-text-aside);

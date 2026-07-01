@@ -3,12 +3,15 @@
     {
       "name": "engine",
       "url": "https://github.com/playcanvas/engine.git",
-      "branch": "release-2.20"
+      "branch": "release-2.20",
+      "searchBoost": 1.25,
+      "searchKindBoosts": { "128": 2 }
     },
     {
       "name": "engine-v1",
       "url": "https://github.com/playcanvas/engine.git",
-      "branch": "release-1.77"
+      "branch": "release-1.77",
+      "searchExclude": true
     },
     {
       "name": "pcui",
