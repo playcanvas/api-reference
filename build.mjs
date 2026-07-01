@@ -4,6 +4,13 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { promisify } from 'util';
+import zlib from 'zlib';
+
+import lunr from 'lunr';
+
+const deflate = promisify(zlib.deflate);
+const inflate = promisify(zlib.inflate);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -161,7 +168,11 @@ function copySharedAssets() {
   ensureDir(path.join('docs', 'assets'));
   fs.copyFileSync(stylePath, path.join('docs', 'assets', 'style.css'));
   fs.copyFileSync(path.join(engineAssets, 'icons.svg'), path.join('docs', 'assets', 'icons.svg'));
-  console.log('Copied shared TypeDoc assets (style.css, icons.svg)');
+  // main.js drives the landing page's search dialog, theme select and mobile
+  // menu; icons.js injects the SVG sprite that search result icons reference
+  fs.copyFileSync(path.join(engineAssets, 'main.js'), path.join('docs', 'assets', 'main.js'));
+  fs.copyFileSync(path.join(engineAssets, 'icons.js'), path.join('docs', 'assets', 'icons.js'));
+  console.log('Copied shared TypeDoc assets (style.css, icons.svg, main.js, icons.js)');
 }
 
 /**
@@ -240,6 +251,79 @@ function postProcessProductDocs() {
 
     console.log(`Post-processed ${count} pages in ${targetFolderName}`);
   }
+}
+
+/**
+ * Merge the per-product TypeDoc search indexes into a single combined index at
+ * docs/assets/search.js so the landing page can search across all products.
+ *
+ * TypeDoc 0.28 writes each product's index as `window.searchData = "<base64>"`
+ * where the payload is deflate-compressed JSON of the form { rows, index }:
+ * rows hold display data ({ kind, name, url, classes, icon?, parent? }) and
+ * index is a serialized lunr 2.3.9 index over the row names. The combined file
+ * uses the exact same format, so TypeDoc's stock client (assets/main.js) can
+ * consume it unchanged. Each merged row gets its URL prefixed with the product
+ * folder and a `product-<folder>` class that landing.css styles as a badge.
+ */
+async function mergeSearchIndexes() {
+  const rows = [];
+  // Mirror TypeDoc's builder settings exactly (JavascriptIndexPlugin) so the
+  // shipped client accepts the rebuilt index: trimmer-only pipeline, ref "id",
+  // and the same field weights.
+  const builder = new lunr.Builder();
+  builder.pipeline.add(lunr.trimmer);
+  builder.ref('id');
+  builder.field('name', { boost: 10 });
+  builder.field('comment', { boost: 1 });
+  builder.field('document', { boost: 1 });
+
+  let merged = 0;
+  for (const repo of REPOS) {
+    if (repo.searchExclude) {
+      continue;
+    }
+    const targetFolderName = repo.name === 'editor-api' ? 'editor' : repo.name;
+    const searchPath = path.join('docs', targetFolderName, 'assets', 'search.js');
+    if (!fs.existsSync(searchPath)) {
+      console.warn(`Warning: No search index found for ${repo.name} at ${searchPath}`);
+      continue;
+    }
+
+    try {
+      const match = fs.readFileSync(searchPath, 'utf8').match(/^window\.searchData = "(.*)";/s);
+      if (!match) {
+        throw new Error('unexpected search.js wrapper');
+      }
+      const data = JSON.parse((await inflate(Buffer.from(match[1], 'base64'))).toString());
+      if (!Array.isArray(data.rows) || !data.index?.version?.startsWith('2.3')) {
+        throw new Error(`unexpected searchData shape (lunr ${data.index?.version}) - TypeDoc format may have changed`);
+      }
+
+      for (const row of data.rows) {
+        const boost = (repo.searchBoost ?? 1) * (repo.searchKindBoosts?.[row.kind] ?? 1);
+        builder.add({ name: row.name, id: rows.length }, { boost });
+        rows.push({
+          ...row,
+          url: `${targetFolderName}/${row.url}`,
+          classes: `${row.classes || ''} product-${targetFolderName}`.trim()
+        });
+      }
+      merged++;
+    } catch (error) {
+      console.warn(`Warning: Could not merge search index for ${repo.name}: ${error.message}`);
+    }
+  }
+
+  if (merged === 0) {
+    console.warn('Warning: No product search indexes found; skipping combined search index');
+    return;
+  }
+
+  const json = JSON.stringify({ rows, index: builder.build() });
+  const payload = (await deflate(Buffer.from(json))).toString('base64');
+  ensureDir(path.join('docs', 'assets'));
+  fs.writeFileSync(path.join('docs', 'assets', 'search.js'), `window.searchData = "${payload}";`);
+  console.log(`Combined search index: ${rows.length} rows from ${merged} products (${Math.round(payload.length / 1024)} KB)`);
 }
 
 /**
@@ -567,6 +651,10 @@ async function buildDocs() {
     // Make the route back to the landing page obvious on every product page
     console.log('\nPost-processing product docs...');
     postProcessProductDocs();
+
+    // Merge the per-product search indexes for the landing page's global search
+    console.log('\nMerging product search indexes...');
+    await mergeSearchIndexes();
 
     // Copy TypeDoc's stylesheet and icons for the landing page to share
     console.log('\nCopying shared TypeDoc assets...');
