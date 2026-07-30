@@ -56,7 +56,7 @@ rebuilding a single lunr index in the same format.
 
 Per-repository search behavior is configured in `repos-config.json`:
 
-- `searchExclude`: omit the product from the combined index (used for the legacy `engine-v1`)
+- `searchExclude`: omit the product from the combined index
 - `searchBoost`: relevance multiplier for all of the product's results
 - `searchKindBoosts`: per-reflection-kind multipliers (e.g. `{ "128": 2 }` boosts classes, mirroring the engine's TypeDoc `searchGroupBoosts`)
 

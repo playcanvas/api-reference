@@ -8,12 +8,6 @@
       "searchKindBoosts": { "128": 2 }
     },
     {
-      "name": "engine-v1",
-      "url": "https://github.com/playcanvas/engine.git",
-      "branch": "release-1.77",
-      "searchExclude": true
-    },
-    {
       "name": "pcui",
       "url": "https://github.com/playcanvas/pcui.git",
       "branch": "main"
