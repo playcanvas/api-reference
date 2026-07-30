@@ -70,12 +70,6 @@
     filter: brightness(1.1);
 }
 
-.landing-link.legacy {
-    background-color: transparent;
-    border-color: var(--color-accent);
-    color: var(--color-text-aside);
-}
-
 /* Single ↗ indicator in the button's text color; suppress TypeDoc's
    black/white a.external[target="_blank"] background icon */
 .landing-link.external {

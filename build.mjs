@@ -380,14 +380,8 @@ function combineSitemaps() {
             const normalizedPath = urlPath.replace(/^\//, '');
             const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
             
-            // Special handling for engine-v1 repository
-            if (repo.name === 'engine-v1' && normalizedPath.startsWith('engine/')) {
-              // For engine-v1, remove the 'engine/' prefix from paths
-              const pathWithoutEngine = normalizedPath.replace(/^engine\//, '');
-              finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEngine}`;
-            }
             // Special handling for editor-api repository
-            else if (repo.name === 'editor-api' && normalizedPath.startsWith('editor/')) {
+            if (repo.name === 'editor-api' && normalizedPath.startsWith('editor/')) {
               // For editor-api, remove the 'editor/' prefix from paths
               const pathWithoutEditor = normalizedPath.replace(/^editor\//, '');
               finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEditor}`;
@@ -405,14 +399,8 @@ function combineSitemaps() {
             const normalizedUrl = url.replace(/^\//, '');
             const normalizedRepoName = repo.name.replace(/^\//, '').replace(/\/$/, '');
             
-            // Special handling for engine-v1 repository
-            if (repo.name === 'engine-v1' && normalizedUrl.startsWith('engine/')) {
-              // For engine-v1, remove the 'engine/' prefix from paths
-              const urlWithoutEngine = normalizedUrl.replace(/^engine\//, '');
-              finalUrl = `${siteUrl}/${targetFolderName}/${urlWithoutEngine}`;
-            }
             // Special handling for editor-api repository
-            else if (repo.name === 'editor-api' && normalizedUrl.startsWith('editor/')) {
+            if (repo.name === 'editor-api' && normalizedUrl.startsWith('editor/')) {
               // For editor-api, remove the 'editor/' prefix from paths
               const pathWithoutEditor = normalizedUrl.replace(/^editor\//, '');
               finalUrl = `${siteUrl}/${targetFolderName}/${pathWithoutEditor}`;
