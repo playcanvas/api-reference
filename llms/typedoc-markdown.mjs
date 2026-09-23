@@ -33,7 +33,7 @@ if (!outDir || !baseUrl) {
 // The repository's own TypeDoc
 const require = createRequire(path.join(process.cwd(), 'package.json'));
 const {
-  Application, PackageJsonReader, PageKind, Reflection, ReflectionKind, ReflectionType, TSConfigReader, TypeDocReader
+  Application, PackageJsonReader, PageKind, ReferenceType, Reflection, ReflectionKind, ReflectionType, TSConfigReader, Type, TypeDocReader
 } = await import(pathToFileURL(require.resolve('typedoc')).href);
 
 const KIND_NAMES = new Map([
@@ -206,8 +206,10 @@ function renderMembers(refl) {
     const base = from ?? baseTypes(refl).find(type => type.name === name);
     const url = base && linkTo(base);
     lines.push('', `## Inherited from ${url ? `[${name}](${url})` : name ?? 'a base type'}`, '');
+    // Every signature, so overloads and setters aren't lost
     for (const child of children) {
-      lines.push(`- ${code(memberSignatures(child, refl)[0] ?? child.name, true)}`);
+      const signatures = memberSignatures(child, refl);
+      lines.push(`- ${(signatures.length ? signatures : [child.name]).map(text => code(text, true)).join(' · ')}`);
     }
   }
   return lines;
@@ -422,11 +424,47 @@ function linkTo(refl) {
 }
 
 /**
- * A type as code, linked to its page if it has one
+ * A type as code, with the symbols it references, at any depth (GraphNode | null,
+ * Promise<GraphicsDevice>), linked to their pages
  */
 function typeLink(type, text = `${type}`) {
-  const url = type?.reflection instanceof Reflection ? linkTo(type.reflection) : null;
-  return url ? `[\`${text}\`](${url})` : `\`${text}\``;
+  const urls = new Map();
+  collectReferences(type, urls);
+  if (!urls.size) return `\`${text}\``;
+
+  const names = [...urls.keys()].sort((a, b) => b.length - a.length).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const pattern = new RegExp(`(?<![\\w$.])(?:${names.join('|')})(?![\\w$])`, 'g');
+  let markdown = '';
+  let last = 0;
+  for (const match of text.matchAll(pattern)) {
+    markdown += `${codeSpan(text.slice(last, match.index))}[\`${match[0]}\`](${urls.get(match[0])})`;
+    last = match.index + match[0].length;
+  }
+  return markdown + codeSpan(text.slice(last));
+}
+
+/**
+ * The page URLs of the symbols a type and the types within it reference, by the
+ * name the type's text shows
+ */
+function collectReferences(type, urls) {
+  if (type instanceof ReferenceType && type.reflection instanceof Reflection) {
+    const url = linkTo(type.reflection);
+    if (url) urls.set(type.reflection.name, url);
+  }
+  for (const value of Object.values(type ?? {})) {
+    for (const child of [value].flat()) {
+      if (child instanceof Type) collectReferences(child, urls);
+    }
+  }
+}
+
+/**
+ * Text as code, with the spaces around it outside the backticks
+ */
+function codeSpan(text) {
+  const [, before, core, after] = text.match(/^(\s*)([\s\S]*?)(\s*)$/);
+  return core ? `${before}\`${core}\`${after}` : text;
 }
 
 function markdownUrl(url) {

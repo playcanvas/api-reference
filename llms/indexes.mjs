@@ -90,9 +90,14 @@ export function generateLlmsFiles({ docsDir, templatesDir, siteUrl, products }) 
     }
     const otherTypesItem = otherTypes.length ? `- [Other types](${productUrl}other-types.md): ${otherTypes.length} interfaces and type aliases without a category, mostly the types of other symbols' parameters and results.` : null;
 
-    // Every page of the product: its symbols in the order of the index, then its constants
+    // Every page of the product: its symbols in the order of the index, the page of
+    // other types, then its constants
     const symbols = orderSymbols(data);
-    const pages = [...symbols.map(symbol => symbol.url), ...(data.constants.length ? ['constants.md', ...data.constants.map(constant => constant.url)] : [])];
+    const pages = [
+      ...symbols.map(symbol => symbol.url),
+      ...(otherTypes.length ? ['other-types.md'] : []),
+      ...(data.constants.length ? ['constants.md', ...data.constants.map(constant => constant.url)] : [])
+    ];
     const bundle = formatBundle({
       title: `${template.match(/^# (.+)$/m)?.[1] ?? data.name}: All Pages`,
       summary: fill(template.match(/^> (.+)$/m)?.[1] ?? '', { VERSION: data.version }),
