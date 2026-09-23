@@ -6,7 +6,7 @@ Each link leads to a Markdown page with the symbol's signatures, parameters, ret
 
 ## Start here
 
-- [Application](classes/Application.md)
+- [AppBase](classes/AppBase.md): The application, and the preferred entry point for new code: create a device with [createGraphicsDevice](functions/createGraphicsDevice.md), then call `init` with [AppOptions](classes/AppOptions.md) that register only the component systems and resource handlers the app uses. [Application](classes/Application.md) registers them all, so none can be tree-shaken, and is expected to be deprecated.
 - [Entity](classes/Entity.md)
 - [Script](classes/Script.md)
 - [Asset](classes/Asset.md)
