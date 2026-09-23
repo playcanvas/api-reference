@@ -1,0 +1,11 @@
+# PCUI Graph API
+
+> The API reference of `@playcanvas/pcui-graph` {{VERSION}}: the `Graph` component, a node-graph editor built on PCUI.
+
+For guides, see PCUI Graph in the [PCUI index](https://developer.playcanvas.com/user-manual/pcui/llms.txt) of the User Manual.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

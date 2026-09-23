@@ -1,0 +1,11 @@
+# PCUI API
+
+> The API reference of `@playcanvas/pcui` {{VERSION}}: the UI components of browser-based tools such as the PlayCanvas Editor, and the bindings that connect them to observer data.
+
+Each link leads to a Markdown page with the symbol's properties and methods. React wrappers of the components are exported from `@playcanvas/pcui/react`. For guides, see the [PCUI index](https://developer.playcanvas.com/user-manual/pcui/llms.txt) of the User Manual.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

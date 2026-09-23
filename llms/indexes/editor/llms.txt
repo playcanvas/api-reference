@@ -1,0 +1,11 @@
+# PlayCanvas Editor API
+
+> The API reference of `@playcanvas/editor-api` {{VERSION}}: the classes and types for automating and extending the PlayCanvas Editor from its browser console or user scripts. The API is in beta.
+
+Each link leads to a Markdown page with the symbol's signatures, parameters and examples. In the Editor, the API is reached through the global `editor.api.globals`. For guides, see the [Editor index](https://developer.playcanvas.com/user-manual/editor/llms.txt) of the User Manual.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

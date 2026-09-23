@@ -43,6 +43,7 @@ This cross-platform script will:
 6. Merge the per-product TypeDoc search indexes into a combined `docs/assets/search.js` that powers the landing page's global search
 7. Create a main index.html file that allows navigation between the different API references
 8. Generate a combined sitemap.xml that includes URLs from all repositories for better SEO
+9. Generate the LLM files: a Markdown version of every page and `llms.txt` indexes for AI agents
 
 ### Global Search
 
@@ -67,6 +68,30 @@ Per-repository search behavior is configured in `repos-config.json`:
 > TypeDoc's client). The build validates each product's index and skips it with
 > a warning if the format changes — revisit `mergeSearchIndexes()` in `build.mjs`
 > when upgrading TypeDoc.
+
+### LLM Files
+
+For AI agents, the build publishes:
+
+- A Markdown version of every page next to its HTML page (`engine/classes/Entity.md`
+  for `engine/classes/Entity.html`), linked from the page with
+  `<link rel="alternate" type="text/markdown">`. `llms/typedoc-markdown.mjs` writes
+  them after each repository's docs are built, using the repository's own TypeDoc,
+  configuration and plugins, so the pages match the HTML ones. It also writes
+  `constants.md` and `llms-symbols.json`, the symbols with their categories and
+  summaries.
+- `/<product>/llms.txt`, the index of a product, rendered from the template
+  `llms/indexes/<product>/llms.txt`: a hand-written preamble, then the symbols by
+  category (`{{SYMBOLS}}`). Uncategorized interfaces and type aliases of a
+  categorized product are listed on `other-types.md`, and namespace members on
+  their namespace's page.
+- `/<product>/llms-full.txt`, every page of a product in one file.
+- `/llms.txt`, the index of the products, from `llms/indexes/llms.txt`.
+
+Links in the templates are relative to the index and must lead to published pages.
+An index must stay within 50 KB (15 KB for `/llms.txt`), so summaries are shortened
+if needed. Problems are warnings locally and fail the build in CI. To regenerate the
+indexes from an existing build, run `npm run build:landing`.
 
 > [!NOTE]  
 > The build script automatically cleans and recreates the `repos` directory each time it's run, ensuring you always get a fresh build with the latest code from the configured branches.

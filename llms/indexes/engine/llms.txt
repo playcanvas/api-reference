@@ -1,0 +1,27 @@
+# PlayCanvas Engine API
+
+> The API reference of the PlayCanvas Engine, `playcanvas` {{VERSION}} on npm: its classes, interfaces, type aliases and functions by category, and its constants.
+
+Each link leads to a Markdown page with the symbol's signatures, parameters, return values and examples, and a class's page documents its members. When `playcanvas` is installed, `node_modules/playcanvas/build/playcanvas.d.ts` has the same documentation for the installed version. For guides, see the [Engine index](https://developer.playcanvas.com/user-manual/engine/llms.txt) of the User Manual.
+
+## Start here
+
+- [AppBase](classes/AppBase.md)
+- [Entity](classes/Entity.md)
+- [Script](classes/Script.md)
+- [Asset](classes/Asset.md)
+- [AssetListLoader](classes/AssetListLoader.md)
+- [CameraComponent](classes/CameraComponent.md)
+- [LightComponent](classes/LightComponent.md)
+- [RenderComponent](classes/RenderComponent.md)
+- [StandardMaterial](classes/StandardMaterial.md)
+- [GSplatComponent](classes/GSplatComponent.md)
+- [RigidBodyComponent](classes/RigidBodyComponent.md)
+- [Vec3](classes/Vec3.md)
+- [Constants](constants.md): Every constant, grouped by prefix, with its value.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

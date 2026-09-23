@@ -9,11 +9,16 @@ import zlib from 'zlib';
 
 import lunr from 'lunr';
 
+import { generateLlmsFiles } from './llms/indexes.mjs';
+
 const deflate = promisify(zlib.deflate);
 const inflate = promisify(zlib.inflate);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Where the site is published, without a trailing slash
+const SITE_URL = (JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')).homepage || 'https://api.playcanvas.com').replace(/\/$/, '');
 
 // Load repository configuration from JSON file
 let REPOS = [];
@@ -213,6 +218,12 @@ function postProcessProductDocs() {
       /(<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="[^"]*">)Home(<\/a>)/,
       '$1← All API References$2'
     );
+
+    // Point AI agents at the page's Markdown version
+    const markdownFile = file.replace(/\.html$/, '.md');
+    if (fs.existsSync(markdownFile) && !updated.includes('type="text/markdown"')) {
+      updated = updated.replace('</head>', `<link rel="alternate" type="text/markdown" href="${path.basename(markdownFile)}"></head>`);
+    }
 
     if (updated === html) {
       return false;
@@ -628,6 +639,9 @@ async function buildDocs() {
         console.log(`Copying docs from ${docsDir} to ${targetDir}`);
         ensureDir(targetDir);
         copyDirContents(docsDir, targetDir);
+
+        // A Markdown version of every page, and the symbols of the product's llms.txt
+        runCommand(`node "${path.join(__dirname, 'llms', 'typedoc-markdown.mjs')}" "${targetDir}" "${SITE_URL}/${targetFolderName}/"`);
       }
       
       // Return to root directory
@@ -661,6 +675,22 @@ async function buildDocs() {
       console.log('Copying assets directory...');
       ensureDir(path.join('docs', 'assets'));
       copyDirContents('assets', path.join('docs', 'assets'));
+    }
+
+    // The llms.txt indexes of the site and of each product, and each product's pages in one file
+    console.log('\nGenerating LLM files...');
+    const llmsProblems = generateLlmsFiles({
+      docsDir: path.join(__dirname, 'docs'),
+      templatesDir: path.join(__dirname, 'llms', 'indexes'),
+      siteUrl: SITE_URL,
+      products: REPOS.map(repo => ({ name: repo.name, folder: repo.name === 'editor-api' ? 'editor' : repo.name }))
+    });
+    if (llmsProblems.length) {
+      const message = `${llmsProblems.length} problem(s) with the LLM files:\n  ${llmsProblems.join('\n  ')}`;
+      if (process.env.CI === 'true') {
+        throw new Error(message);
+      }
+      console.warn(`Warning: ${message}`);
     }
 
     if (!landingOnly) {
