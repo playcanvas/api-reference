@@ -1,0 +1,11 @@
+# PlayCanvas Web Components API
+
+> The API reference of `@playcanvas/web-components` {{VERSION}}: the classes behind the `<pc-*>` custom elements, and the library's JavaScript API.
+
+The attributes of each element are documented in the tag reference of the User Manual. The pages here document the elements' JavaScript classes, such as the properties and methods available once `whenReady` resolves. For guides, see the [Web Components index](https://developer.playcanvas.com/user-manual/web-components/llms.txt) of the User Manual.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

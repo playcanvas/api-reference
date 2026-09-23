@@ -1,0 +1,11 @@
+# Observer API
+
+> The API reference of `@playcanvas/observer` {{VERSION}}: observable data (`Observer` and `ObserverList`), events and undo history, which PCUI components bind to.
+
+For guides, see Data Binding in the [PCUI index](https://developer.playcanvas.com/user-manual/pcui/llms.txt) of the User Manual.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

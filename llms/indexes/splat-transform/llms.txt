@@ -1,0 +1,11 @@
+# SplatTransform API
+
+> The API reference of the `@playcanvas/splat-transform` {{VERSION}} library: reading, processing and writing 3D Gaussian splat data in Node.js and the browser.
+
+The command-line tool is documented in the [SplatTransform index](https://developer.playcanvas.com/user-manual/splat-transform/llms.txt) of the User Manual, with a guide to using the library.
+
+{{SYMBOLS}}
+
+## Optional
+
+{{ALL_PAGES}}

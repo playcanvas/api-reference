@@ -1,0 +1,20 @@
+# PlayCanvas API Reference
+
+> The API reference of the PlayCanvas Engine and the other PlayCanvas libraries. Each library has an index of its symbols by category, and every class, interface, type alias and function has a Markdown page with its signatures, parameters, return values and examples.
+
+Guides, and how the products fit together, are in the [PlayCanvas documentation index](https://developer.playcanvas.com/llms.txt). When a library is installed, the type declarations in its npm package document the exact installed version.
+
+## Libraries
+
+- [Engine API](engine/llms.txt): `playcanvas` {{VERSION:engine}}, the 3D engine: applications, entities and components, graphics, physics, animation, input, XR and Gaussian splats.
+- [Editor API](editor/llms.txt): `@playcanvas/editor-api` {{VERSION:editor-api}}, for automating and extending the PlayCanvas Editor from its browser console or user scripts.
+- [Web Components API](web-components/llms.txt): `@playcanvas/web-components` {{VERSION:web-components}}, the classes behind the `<pc-*>` custom elements.
+- [PCUI API](pcui/llms.txt): `@playcanvas/pcui` {{VERSION:pcui}}, the UI components of browser-based tools.
+- [PCUI Graph API](pcui-graph/llms.txt): `@playcanvas/pcui-graph` {{VERSION:pcui-graph}}, the node-graph editor component.
+- [Observer API](observer/llms.txt): `@playcanvas/observer` {{VERSION:observer}}, observable data, events and undo history.
+- [SplatTransform API](splat-transform/llms.txt): `@playcanvas/splat-transform` {{VERSION:splat-transform}}, the library for reading, processing and writing Gaussian splats.
+
+## Other documentation
+
+- [PlayCanvas React](https://developer.playcanvas.com/user-manual/react/llms.txt): `@playcanvas/react` is documented in the User Manual, component by component.
+- [PlayCanvas documentation](https://developer.playcanvas.com/llms.txt): Guides for every product.
