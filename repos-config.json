@@ -3,7 +3,7 @@
     {
       "name": "engine",
       "url": "https://github.com/playcanvas/engine.git",
-      "branch": "release-2.22",
+      "branch": "release-2.23",
       "searchBoost": 1.25,
       "searchKindBoosts": { "128": 2 }
     },
