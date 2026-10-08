@@ -70,6 +70,13 @@
     filter: brightness(1.1);
 }
 
+/* The secondary link of a card, such as the reference on a single page */
+.landing-link.secondary {
+    border-color: var(--color-link);
+    background-color: transparent;
+    color: var(--color-link);
+}
+
 /* Single ↗ indicator in the button's text color; suppress TypeDoc's
    black/white a.external[target="_blank"] background icon */
 .landing-link.external {
