@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import { formatBundleHtml } from './bundle-html.mjs';
+
 /**
  * Generates the LLM files of the API site from the Markdown pages and symbols
  * that typedoc-markdown.mjs writes for each product:
@@ -8,6 +10,7 @@ import path from 'path';
  * - /<product>/llms.txt: the index of a product, rendered from the template
  *   llms/indexes/<product>/llms.txt
  * - /<product>/llms-full.txt: every page of the product in one file
+ * - /<product>/one-page.html: the same pages as one HTML page, for people
  * - /llms.txt: the index of the products, from llms/indexes/llms.txt
  *
  * Templates are llms.txt Markdown with these placeholders:
@@ -98,13 +101,34 @@ export function generateLlmsFiles({ docsDir, templatesDir, siteUrl, products }) 
       ...(otherTypes.length ? ['other-types.md'] : []),
       ...(data.constants.length ? ['constants.md', ...data.constants.map(constant => constant.url)] : [])
     ];
+    const bundleTitle = `${template.match(/^# (.+)$/m)?.[1] ?? data.name}: All Pages`;
+    const bundleSummary = fill(template.match(/^> (.+)$/m)?.[1] ?? '', { VERSION: data.version });
+    const bundlePages = pages.map(url => ({ url: `${productUrl}${url}`, text: readText(path.join(docsDir, folder, ...url.split('/'))) }));
     const bundle = formatBundle({
-      title: `${template.match(/^# (.+)$/m)?.[1] ?? data.name}: All Pages`,
-      summary: fill(template.match(/^> (.+)$/m)?.[1] ?? '', { VERSION: data.version }),
+      title: bundleTitle,
+      summary: bundleSummary,
       indexUrl: `${productUrl}llms.txt`,
-      pages: pages.map(url => ({ url: `${productUrl}${url}`, text: readText(path.join(docsDir, folder, ...url.split('/'))) }))
+      pages: bundlePages
     });
     fs.writeFileSync(path.join(docsDir, folder, 'llms-full.txt'), bundle);
+
+    // The same pages as one HTML page, with the symbols of the index as its contents
+    const contents = [...catalogSections(data)].map(([title, listed]) => ({
+      title,
+      items: listed.map(symbol => ({ name: symbol.name, url: `${productUrl}${symbol.url}` }))
+    }));
+    const extraItems = [
+      otherTypes.length && { name: 'Other types', url: `${productUrl}other-types.md` },
+      data.constants.length && { name: 'Constants', url: `${productUrl}constants.md` }
+    ].filter(Boolean);
+    if (extraItems.length) contents.push({ title: 'More', items: extraItems });
+    fs.writeFileSync(path.join(docsDir, folder, 'one-page.html'), formatBundleHtml({
+      title: bundleTitle,
+      summary: bundleSummary,
+      productUrl,
+      pages: bundlePages,
+      contents
+    }));
 
     // Shorten the summaries until the index fits its budget
     let text;
@@ -185,19 +209,30 @@ function renderIndex(template, { source, indexUrl, docsDir, siteUrl, summaries, 
  * as lists of links with their summaries
  */
 function renderCatalog(data, productUrl, maxSummary, otherTypesItem) {
-  const categorized = isCategorized(data);
-  const sections = new Map();
-  for (const symbol of catalogSymbols(data).filter(listed => !isOtherType(data, listed))) {
-    const title = categorized || symbol.category !== 'Other' ? symbol.category : KIND_SECTIONS[symbol.kind] ?? 'Other';
-    if (!sections.has(title)) sections.set(title, []);
+  const sections = new Map([...catalogSections(data)].map(([title, listed]) => [title, listed.map((symbol) => {
     const notes = [shorten(symbol.summary, maxSummary), symbol.deprecated && '(deprecated)'].filter(Boolean).join(' ');
-    sections.get(title).push(`- [${symbol.name}](${productUrl}${symbol.url})${notes ? `: ${notes}` : ''}`);
-  }
+    return `- [${symbol.name}](${productUrl}${symbol.url})${notes ? `: ${notes}` : ''}`;
+  })]));
   if (otherTypesItem) {
     if (!sections.has('Other')) sections.set('Other', []);
     sections.get('Other').push(otherTypesItem);
   }
   return [...sections].map(([title, items]) => [`## ${title}`, '', ...items].join('\n')).join('\n\n');
+}
+
+/**
+ * The symbols an index lists, by the section they are listed in: by category,
+ * or by kind if the product has no categories
+ */
+function catalogSections(data) {
+  const categorized = isCategorized(data);
+  const sections = new Map();
+  for (const symbol of catalogSymbols(data).filter(listed => !isOtherType(data, listed))) {
+    const title = categorized || symbol.category !== 'Other' ? symbol.category : KIND_SECTIONS[symbol.kind] ?? 'Other';
+    if (!sections.has(title)) sections.set(title, []);
+    sections.get(title).push(symbol);
+  }
+  return sections;
 }
 
 /**
