@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "lunr": "2.3.9",
+    "markdown-it": "14.3.2",
     "serve": "14.2.6"
   },
   "scripts": {

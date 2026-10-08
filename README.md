@@ -2,6 +2,20 @@
 
 This repository builds the combined PlayCanvas API Reference. The API reference is a collection of documentation from multiple PlayCanvas repositories.
 
+## Published References
+
+Each product's reference is also published as a single HTML page, and as Markdown for AI agents (see [LLM Files](#llm-files)):
+
+| Product | Reference | Single page | For AI agents |
+| --- | --- | --- | --- |
+| Engine | [engine](https://api.playcanvas.com/engine/) | [one-page.html](https://api.playcanvas.com/engine/one-page.html) | [llms.txt](https://api.playcanvas.com/engine/llms.txt), [llms-full.txt](https://api.playcanvas.com/engine/llms-full.txt) |
+| PCUI | [pcui](https://api.playcanvas.com/pcui/) | [one-page.html](https://api.playcanvas.com/pcui/one-page.html) | [llms.txt](https://api.playcanvas.com/pcui/llms.txt), [llms-full.txt](https://api.playcanvas.com/pcui/llms-full.txt) |
+| Observer | [observer](https://api.playcanvas.com/observer/) | [one-page.html](https://api.playcanvas.com/observer/one-page.html) | [llms.txt](https://api.playcanvas.com/observer/llms.txt), [llms-full.txt](https://api.playcanvas.com/observer/llms-full.txt) |
+| Editor API | [editor](https://api.playcanvas.com/editor/) | [one-page.html](https://api.playcanvas.com/editor/one-page.html) | [llms.txt](https://api.playcanvas.com/editor/llms.txt), [llms-full.txt](https://api.playcanvas.com/editor/llms-full.txt) |
+| PCUI Graph | [pcui-graph](https://api.playcanvas.com/pcui-graph/) | [one-page.html](https://api.playcanvas.com/pcui-graph/one-page.html) | [llms.txt](https://api.playcanvas.com/pcui-graph/llms.txt), [llms-full.txt](https://api.playcanvas.com/pcui-graph/llms-full.txt) |
+| Web Components | [web-components](https://api.playcanvas.com/web-components/) | [one-page.html](https://api.playcanvas.com/web-components/one-page.html) | [llms.txt](https://api.playcanvas.com/web-components/llms.txt), [llms-full.txt](https://api.playcanvas.com/web-components/llms-full.txt) |
+| SplatTransform | [splat-transform](https://api.playcanvas.com/splat-transform/) | [one-page.html](https://api.playcanvas.com/splat-transform/one-page.html) | [llms.txt](https://api.playcanvas.com/splat-transform/llms.txt), [llms-full.txt](https://api.playcanvas.com/splat-transform/llms-full.txt) |
+
 ## Requirements
 
 Ensure you have Node.js 18+ installed.
@@ -86,6 +100,9 @@ For AI agents, the build publishes:
   categorized product are listed on `other-types.md`, and namespace members on
   their namespace's page.
 - `/<product>/llms-full.txt`, every page of a product in one file.
+- `/<product>/one-page.html`, the same pages as one HTML page for people, rendered by
+  `llms/bundle-html.mjs` with `markdown-it`. Its contents list the symbols of the
+  index, and links between the pages lead within the file.
 - `/llms.txt`, the index of the products, from `llms/indexes/llms.txt`.
 
 Links in the templates are relative to the index and must lead to published pages.
