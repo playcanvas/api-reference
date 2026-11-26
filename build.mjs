@@ -605,6 +605,10 @@ async function buildDocs() {
     console.log('Creating .nojekyll file...');
     fs.writeFileSync(path.join('docs', '.nojekyll'), '');
 
+    // Point crawlers at the combined sitemap
+    console.log('Creating robots.txt...');
+    fs.writeFileSync(path.join('docs', 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+
     if (!landingOnly) {
       // Remove existing repos directory and create a new one
       deleteDir('repos');
